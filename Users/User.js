@@ -1,19 +1,30 @@
 var databaseHandler = require('../Library/database/Database');
 
-function User(fullName, userType) {
-  this.fullName = fullName;
+function User(firstName, lastName, userType) {
+  this.firstName = firstName;
+  this.lastName = lastName;
   this.userType = userType;
   this.id = generateUserId();
   this.save();
   console.log('User saved: ', this);
 }
-User.prototype.getFullName = function() {
-  return this.fullName;
+
+User.prototype.getFirstName = function() {
+  return this.firstName;
 };
 
-User.prototype.update = function(fullName) {
-  this.fullName = fullName;
-  console.log('Updated FullName: ', this);
+User.prototype.getLastName = function() {
+  return this.lastName;
+};
+
+User.prototype.updateFirstName = function(name) {
+  this.firstName = name;
+  console.log('Updated FirstName: ', this);
+};
+
+User.prototype.updateLastName = function(name) {
+  this.lastName = name;
+  console.log('Updated LastName: ', this);
 };
 
 User.prototype.save = function() {

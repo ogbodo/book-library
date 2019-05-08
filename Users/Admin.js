@@ -2,14 +2,10 @@ var User = require('./User');
 var InheritProperty = require('./Interface/InheritProperty');
 var databaseHandler = require('../Library/database/Database');
 
-function Admin(fullName) {
-  User.call(this, fullName, 'ADMIN');
+function Admin(firstName, lastName) {
+  User.call(this, firstName, lastName, 'ADMIN');
 }
 InheritProperty(User, Admin);
-
-Admin.prototype.updateFullName = function(fullName) {
-  this.update(fullName);
-};
 
 Admin.prototype.searchUserByID = function(id) {
   var users = databaseHandler['users'];
@@ -18,6 +14,18 @@ Admin.prototype.searchUserByID = function(id) {
       return users[index];
     }
   }
+  return false;
+};
+
+Admin.prototype.searchUserByName = function(name) {
+  var users = databaseHandler['users'];
+
+  for (var index = 0; index < users.length; index++) {
+    if (users[index].firstName === name || users[index].lastName === name) {
+      return users[index];
+    }
+  }
+  return false;
 };
 
 module.exports = Admin;

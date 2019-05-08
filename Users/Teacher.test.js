@@ -2,11 +2,12 @@ var Teacher = require('./Teacher');
 
 test('Teacher can be created', function() {
   var teacher = new Teacher(
-    'Mr. David Mogbeyi',
-    'Male',
+    'David',
+    'Mogbeyi',
     'Dev/1/340',
+    'Male',
     'Science',
     'Computer Science'
   );
-  expect(teacher.getFullName()).toBe('Mr. David Mogbeyi');
+  expect(teacher.getFirstName()).toBe('David');
 });
