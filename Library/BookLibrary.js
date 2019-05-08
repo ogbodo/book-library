@@ -8,9 +8,6 @@ function BookLibrary(title, category, quantity, author) {
   this.author = author;
   this.dateAdded = getTodayDate();
 }
-BookLibrary.prototype.getBookTitle = function() {
-  return Book.prototype.getTitle();
-};
 
 BookLibrary.prototype.saveBook = function() {
   var book = new Book(
