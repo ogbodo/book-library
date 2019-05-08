@@ -6,7 +6,12 @@ test('Admin can be created', function() {
 });
 
 test('Admin details can be updated', function() {
-  var admin = new Admin('Izuking Ogbodo');
-  admin.update('Solomon Izuchukwu Ogbodo');
-  expect(admin.getFullName()).toBe('Solomon Izuchukwu Ogbodo');
+  var admin = new Admin('Treasure Ogbonna');
+  admin.updateFullName('Natasha Micheal');
+  expect(admin.getFullName()).toBe('Natasha Micheal');
+});
+
+test('Admin account can be deleted', function() {
+  var admin = new Admin('Matthias King');
+  expect(admin.deleteAccount()).toBeTruthy();
 });

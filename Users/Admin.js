@@ -6,4 +6,8 @@ function Admin(fullName) {
 }
 InheritProperty(User, Admin);
 
+Admin.prototype.updateFullName = function(fullName) {
+  this.update(fullName);
+};
+
 module.exports = Admin;

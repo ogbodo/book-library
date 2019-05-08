@@ -5,6 +5,7 @@ function User(fullName, userType) {
   this.userType = userType;
   this.id = generateUserId();
   this.save();
+  console.log('User saved: ', this);
 }
 User.prototype.getFullName = function() {
   return this.fullName;
@@ -12,11 +13,23 @@ User.prototype.getFullName = function() {
 
 User.prototype.update = function(fullName) {
   this.fullName = fullName;
+  console.log('Updated FullName: ', this);
 };
 
 User.prototype.save = function() {
   databaseHandler['users'].push(this);
-  console.log('User saved: ', this);
+};
+
+User.prototype.deleteAccount = function() {
+  console.log(this.id);
+
+  var users = databaseHandler['users'];
+  for (var index = 0; index < users.length; index++) {
+    if (users[index].id === this.id) {
+      users.splice(index, 1);
+      return true;
+    }
+  }
 };
 
 function generateUserId() {
