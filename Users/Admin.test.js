@@ -7,6 +7,6 @@ test('Admin can be created', function() {
 
 test('Admin details can be updated', function() {
   var admin = new Admin('Izuking Ogbodo');
-  admin.updateFullName('Solomon Izuchukwu Ogbodo');
+  admin.update('Solomon Izuchukwu Ogbodo');
   expect(admin.getFullName()).toBe('Solomon Izuchukwu Ogbodo');
 });
