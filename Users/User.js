@@ -21,13 +21,20 @@ User.prototype.save = function() {
 };
 
 User.prototype.deleteAccount = function() {
-  console.log(this.id);
-
   var users = databaseHandler['users'];
   for (var index = 0; index < users.length; index++) {
     if (users[index].id === this.id) {
       users.splice(index, 1);
       return true;
+    }
+  }
+};
+
+User.prototype.retrieveDetails = function() {
+  var users = databaseHandler['users'];
+  for (var index = 0; index < users.length; index++) {
+    if (users[index].id === this.id) {
+      return users[index];
     }
   }
 };

@@ -15,3 +15,8 @@ test('Admin account can be deleted', function() {
   var admin = new Admin('Matthias King');
   expect(admin.deleteAccount()).toBeTruthy();
 });
+
+test('Admin details can be read', function() {
+  var admin = new Admin('Matthias Ogbonna');
+  expect(admin.retrieveDetails()).toEqual(admin);
+});
