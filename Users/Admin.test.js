@@ -145,7 +145,7 @@ describe('Admin can perform search on other users', function() {
       expect(admin.readStudent(student.matricNumber)).toEqual(student);
     });
 
-    test('For the case of deleting a staff', function() {
+    test('For the case of reading a teacher by staffId', function() {
       expect(admin.readTeacher(teacher.staffId)).toEqual(teacher);
     });
 
@@ -153,9 +153,9 @@ describe('Admin can perform search on other users', function() {
       expect(admin.readStudent('111110000899')).toBeFalsy();
     });
 
-    // test('For the case of deleting a staff', function() {
-    //   expect(admin.readTeacher(teacher.staffId)).toEqual(teacher);
-    // });
+    test('For the case of reading a teacher by wrong staffId', function() {
+      expect(admin.readTeacher('dev/000/00018')).toBeFalsy();
+    });
   });
 });
 
