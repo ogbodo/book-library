@@ -190,6 +190,10 @@ describe('All about Admin as the librarian', function() {
     expect(admin.getBookByAuthor('Izuking Ogbodo')).toBeTruthy();
   });
 
+  test('Admin trying to read books by none existing author', function() {
+    expect(admin.getBookByAuthor('David Ayo')).toBeFalsy();
+  });
+
   test('Admin can read books by date added', function() {
     admin.addBook('What Women Want', 'Magazine', 'Izuking Ogbodo');
     expect(admin.getBookByDate(new Date().toLocaleDateString())).toBeTruthy();
