@@ -42,5 +42,10 @@ describe('All about Admin own account functionalities', function() {
       teacher.updateStaffId('Dev/89/0023');
       expect(teacher.staffId).toBe('Dev/89/0023');
     });
+
+    test('For the case of Gender', function() {
+      teacher.updateGender('Male');
+      expect(teacher.gender).toBe('Male');
+    });
   });
 });
