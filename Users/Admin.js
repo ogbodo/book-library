@@ -107,15 +107,24 @@ Admin.prototype.getBooks = function() {
   return databaseHandler['books'];
 };
 
-Admin.prototype.updateBookTitle = function(id, newTitle) {
+Admin.prototype.updateBookTitle = function(book, newTitle) {
   var books = this.getBooks();
   for (var index = 0; index < books.length; index++) {
-    if (books[index].id == id) {
+    if (books[index].id == book.id) {
       books[index].title = newTitle;
       return books[index];
     }
   }
-  return false;
+};
+
+Admin.prototype.deleteBook = function(book) {
+  var books = this.getBooks();
+  for (var index = 0; index < books.length; index++) {
+    if (books[index].id === book.id) {
+      books.splice(index, 1);
+      return true;
+    }
+  }
 };
 
 function saveBook(book) {

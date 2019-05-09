@@ -212,11 +212,24 @@ describe('All about Admin as the librarian', function() {
   });
 
   test('Admin can update a book title', function() {
-    expect(admin.updateBookTitle('3', 'What I Need').title).toBe('What I Need');
+    var newBook = admin.addBook(
+      'Chike the River',
+      'Literature',
+      'Chinuwa Achebe'
+    );
+
+    expect(admin.updateBookTitle(newBook, 'What I Need').title).toBe(
+      'What I Need'
+    );
   });
 
-  test('Admin trying to update a book title using a wrong book id', function() {
-    expect(admin.updateBookTitle('120', 'What I Need').title).toBeFalsy();
+  test('Admin can delete a book', function() {
+    var newBook = admin.addBook(
+      'Chike the River',
+      'Literature',
+      'Chinuwa Achebe'
+    );
+    expect(admin.deleteBook(newBook)).toBeTruthy();
   });
 });
 
