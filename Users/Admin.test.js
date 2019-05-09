@@ -181,6 +181,10 @@ describe('All about Admin as the librarian', function() {
     expect(admin.getBookByTitle('What Men Want')).toBeTruthy();
   });
 
+  test('Admin trying to read books by none existing title', function() {
+    expect(admin.getBookByTitle('The angel and devil')).toBeFalsy();
+  });
+
   test('Admin can read books by author', function() {
     admin.addBook('What Women Want', 'Magazine', 'Izuking Ogbodo');
     expect(admin.getBookByAuthor('Izuking Ogbodo')).toBeTruthy();
