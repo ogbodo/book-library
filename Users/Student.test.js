@@ -1,7 +1,7 @@
 var Student = require('./Student');
 
 //Functionalities of Student with respect to own account
-describe('All about Admin own account functionalities', function() {
+describe('All about Student own account functionalities', function() {
   test('Student can be created', function() {
     var student = new Student(
       'Solomon',
