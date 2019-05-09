@@ -172,8 +172,13 @@ describe('All about Admin as the librarian', function() {
 
   test('Admin can add new book into the library', function() {
     expect(
-      admin.addBook('What Men Want', 'Journal', 220, 'Izuking Ogbodo')
+      admin.addBook('What Men Want', 'Journal', 'Izuking Ogbodo')
     ).toBeTruthy();
+  });
+
+  test('Admin can read book by title', function() {
+    admin.addBook('What Men Want', 'Journal', 'Izuking Ogbodo');
+    expect(admin.getBookByTitle('What Men Want')).toBeTruthy();
   });
 });
 

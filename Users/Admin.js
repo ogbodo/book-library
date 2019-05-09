@@ -59,12 +59,23 @@ Admin.prototype.readTeacher = function(staffId) {
   return false;
 };
 
-Admin.prototype.addBook = function(title, category, quantity, author) {
-  var book = new Book(title, category, quantity, author, getTodayDate());
+Admin.prototype.addBook = function(title, category, author) {
+  var book = new Book(title, category, author, getTodayDate());
   databaseHandler['books'].push(book);
   console.log(book);
 
   return book;
+};
+
+Admin.prototype.getBookByTitle = function(title) {
+  var books = databaseHandler['books'],
+    booksFound = [];
+  for (var index = 0; index < books.length; index++) {
+    if (books[index].title === title) {
+      booksFound.push(books[index]);
+    }
+  }
+  return booksFound.length === 0 ? false : booksFound;
 };
 
 function getTodayDate() {
