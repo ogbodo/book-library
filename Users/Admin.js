@@ -18,14 +18,14 @@ Admin.prototype.searchUserByID = function(id) {
 };
 
 Admin.prototype.searchUserByName = function(name) {
-  var users = databaseHandler['users'];
-
+  var users = databaseHandler['users'],
+    results = [];
   for (var index = 0; index < users.length; index++) {
     if (users[index].firstName === name || users[index].lastName === name) {
-      return users[index];
+      results.push(users[index]);
     }
   }
-  return false;
+  return results.length === 0 ? false : results;
 };
 
 Admin.prototype.deleteUser = function(user) {
@@ -36,6 +36,26 @@ Admin.prototype.deleteUser = function(user) {
       return true;
     }
   }
+};
+
+Admin.prototype.readStudent = function(matricNumber) {
+  var users = databaseHandler['users'];
+  for (var index = 0; index < users.length; index++) {
+    if (users[index].matricNumber === matricNumber) {
+      return users[index];
+    }
+  }
+  return false;
+};
+
+Admin.prototype.readTeacher = function(staffId) {
+  var users = databaseHandler['users'];
+  for (var index = 0; index < users.length; index++) {
+    if (users[index].staffId === staffId) {
+      return users[index];
+    }
+  }
+  return false;
 };
 
 module.exports = Admin;

@@ -119,6 +119,36 @@ describe('Admin can perform search on other users', function() {
       expect(admin.deleteUser(teacher)).toBeTruthy();
     });
   });
+
+  describe('Admin can read other users by Matric Number or Staff Id', function() {
+    var admin = new Admin('Matthias', ' Ogbonna');
+
+    var student = new Student(
+      'Mary',
+      'Godwin',
+      '45302312004',
+      'Femal',
+      'Science',
+      'Physics',
+      '400L'
+    );
+
+    var teacher = new Teacher(
+      'Adedayo',
+      'Olagunju',
+      'Dev/0012/4321',
+      'Male',
+      'Art',
+      'English'
+    );
+    test('For the case of reading a student by Matric Number', function() {
+      expect(admin.readStudent(student.matricNumber)).toEqual(student);
+    });
+
+    // test('For the case of deleting a staff', function() {
+    //   expect(admin.deleteUser(teacher)).toBeTruthy();
+    // });
+  });
 });
 
 /**TODO add methods for book like getTitle() etc */
