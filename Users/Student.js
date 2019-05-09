@@ -36,4 +36,8 @@ Student.prototype.updateDepartment = function(department) {
   this.department = department;
 };
 
+Student.prototype.updateLevel = function(level) {
+  this.level = level;
+};
+
 module.exports = Student;
