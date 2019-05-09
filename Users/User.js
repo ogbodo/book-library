@@ -5,6 +5,7 @@ function User(firstName, lastName, gender, userType) {
   this.lastName = lastName;
   this.gender = gender;
   this.userType = userType;
+  this.borrowedBooks = [];
   this.id = generateUserId();
   this.save();
 }
@@ -71,6 +72,11 @@ function generateUserId() {
 
 User.prototype.save = function() {
   databaseHandler['users'].push(this);
+};
+
+User.prototype.borrowBook = function(book) {
+  this.borrowedBooks.push(book);
+  return this.borrowedBooks;
 };
 
 function getUsers() {

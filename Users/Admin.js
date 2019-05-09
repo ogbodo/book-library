@@ -115,6 +115,11 @@ Admin.prototype.deleteBooks = function() {
   return BookLibrary.prototype.deleteAll();
 };
 
+Admin.prototype.lendBookByTitle = function(user, title) {
+  var book = this.getBooksByTitle(title);
+  return user.borrowBook(book);
+};
+
 function getUserSets(userType) {
   var users = Admin.prototype.getUsers(),
     usersFound = [];

@@ -216,8 +216,9 @@ describe('All about Admin as the librarian', function() {
   });
 
   describe('Admin can perform retrieval of books', function() {
+    admin.addBook('Chike the River', 'Literature', 'Chinuwa Achebe');
+
     test('Admin can get books by title', function() {
-      admin.addBook('Chike the River', 'Literature', 'Chinuwa Achebe');
       expect(admin.getBooksByTitle('Chike the River')).toBeTruthy();
     });
 
@@ -261,6 +262,31 @@ describe('All about Admin as the librarian', function() {
     );
   });
 
+  describe('Admin can perform lending of books', function() {
+    var student = new Student(
+      'Lydia',
+      'Habbiba',
+      '90128780',
+      'Femal',
+      'Social Science',
+      'Political Science',
+      '100L'
+    );
+
+    var teacher = new Teacher(
+      'Ashemole',
+      'Mike',
+      'Dev/98/0023',
+      'Male',
+      'Science',
+      'Mathematics'
+    );
+
+    test('Admin can lend book by book title', function() {
+      expect(admin.lendBookByTitle(student, 'Chike the River')).toBeTruthy();
+    });
+  });
+
   describe('Admin can perform deletion of books', function() {
     test('Admin can delete a book', function() {
       var newBook = admin.addBook(
@@ -270,12 +296,15 @@ describe('All about Admin as the librarian', function() {
       );
       expect(admin.deleteBook(newBook)).toBeTruthy();
     });
+
     test('Admin can delete all book', function() {
       expect(admin.deleteBooks()).toBe(0);
     });
   });
 });
 
-/**TODO add methods for book like getTitle() etc
- * ALSO, LATER SEE IF ALL THE IF...ELSE PARTS CAN BE REPLACED WITH REGEX.
+/**
+ * ALSO, LATER SEE IF ALL THE IF...ELSE PARTS CAN BE REPLACED WITH REGEX
+ * RENAME ALL THE FILES NAME AND FOLDERS AT LAST TO START WITH LOWER CASE LETTER
+ * Dont add users with same matric number or staff number
  */
