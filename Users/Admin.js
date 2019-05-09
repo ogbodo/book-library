@@ -28,4 +28,14 @@ Admin.prototype.searchUserByName = function(name) {
   return false;
 };
 
+Admin.prototype.deleteUser = function(user) {
+  var users = databaseHandler['users'];
+  for (var index = 0; index < users.length; index++) {
+    if (users[index].id === user.id) {
+      users.splice(index, 1);
+      return true;
+    }
+  }
+};
+
 module.exports = Admin;

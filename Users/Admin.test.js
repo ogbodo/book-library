@@ -78,7 +78,7 @@ describe('Admin can perform search on other users', function() {
     expect(admin.searchUserByName('Mogbeyi')).toBeTruthy();
   });
 
-  test('For the case studen by first name', function() {
+  test('For the case student by first name', function() {
     expect(admin.searchUserByName('Solomon')).toBeTruthy();
   });
 
@@ -89,4 +89,36 @@ describe('Admin can perform search on other users', function() {
   test('For the case of wrong name', function() {
     expect(admin.searchUserByName('Josephat')).toBeFalsy();
   });
+
+  describe('Admin can delete other users', function() {
+    var admin = new Admin('Matthias', ' Ogbonna');
+
+    var student = new Student(
+      'Lydia',
+      'Habbiba',
+      '90128780',
+      'Femal',
+      'Social Science',
+      'Political Science',
+      '100L'
+    );
+
+    var teacher = new Teacher(
+      'Ashemole',
+      'Mike',
+      'Dev/98/0023',
+      'Male',
+      'Science',
+      'Mathematics'
+    );
+    test('For the case of deleting a student', function() {
+      expect(admin.deleteUser(student)).toBeTruthy();
+    });
+
+    // test('For the case of deleting a staff', function() {
+    //   expect(admin.deleteUser(teacher)).toBeTruthy();
+    // });
+  });
 });
+
+/**TODO add methods for book like getTitle() etc */
