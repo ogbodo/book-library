@@ -196,6 +196,10 @@ describe('All about Admin and other users', function() {
           expect(admin.deleteAllStudent()).toBeFalsy();
         });
       });
+
+      test('For the case of deleting all teacher', function() {
+        expect(admin.deleteAllTeacher()).toBeFalsy();
+      });
     });
   });
 });
