@@ -39,6 +39,18 @@ Admin.prototype.deleteUser = function(user) {
   }
 };
 
+Admin.prototype.deleteAllTeacher = function() {
+  var users = this.getUsers(),
+    madeDeletion = false;
+  for (var index = 0; index < users.length; index++) {
+    if (users[index].userType === 'TEACHER') {
+      users.splice(index, 1);
+      madeDeletion = true;
+    }
+  }
+  return madeDeletion;
+};
+
 Admin.prototype.readStudent = function(matricNumber) {
   var users = this.getUsers();
   for (var index = 0; index < users.length; index++) {

@@ -52,6 +52,10 @@ describe('All about Admin and other users', function() {
     test('For the case of Admin to get all admins', function() {
       expect(admin.getAllAdmins()).toBeTruthy();
     });
+
+    // test('For the case where admin wants to get users when none exists', function() {
+    //   expect(admin.getAllAdmins()).toBeTruthy();
+    // });
   });
 
   describe('Admin can perform search on other users', function() {
@@ -112,36 +116,6 @@ describe('All about Admin and other users', function() {
       expect(admin.searchUserByName('Josephat')).toBeFalsy();
     });
 
-    describe('Admin can delete other users', function() {
-      var admin = new Admin('Matthias', ' Ogbonna', 'Male');
-
-      var student = new Student(
-        'Lydia',
-        'Habbiba',
-        '90128780',
-        'Femal',
-        'Social Science',
-        'Political Science',
-        '100L'
-      );
-
-      var teacher = new Teacher(
-        'Ashemole',
-        'Mike',
-        'Dev/98/0023',
-        'Male',
-        'Science',
-        'Mathematics'
-      );
-      test('For the case of deleting a student', function() {
-        expect(admin.deleteUser(student)).toBeTruthy();
-      });
-
-      test('For the case of deleting a staff', function() {
-        expect(admin.deleteUser(teacher)).toBeTruthy();
-      });
-    });
-
     describe('Admin can read other users by Matric Number or Staff Id', function() {
       var admin = new Admin('Matthias', ' Ogbonna', 'Male');
 
@@ -177,6 +151,40 @@ describe('All about Admin and other users', function() {
 
       test('For the case of reading a teacher by wrong staffId', function() {
         expect(admin.readTeacher('dev/000/00018')).toBeFalsy();
+      });
+    });
+
+    describe('Admin can delete other users', function() {
+      var admin = new Admin('Matthias', ' Ogbonna', 'Male');
+
+      var student = new Student(
+        'Lydia',
+        'Habbiba',
+        '90128780',
+        'Femal',
+        'Social Science',
+        'Political Science',
+        '100L'
+      );
+
+      var teacher = new Teacher(
+        'Ashemole',
+        'Mike',
+        'Dev/98/0023',
+        'Male',
+        'Science',
+        'Mathematics'
+      );
+      test('For the case of deleting a student', function() {
+        expect(admin.deleteUser(student)).toBeTruthy();
+      });
+
+      test('For the case of deleting a teacher', function() {
+        expect(admin.deleteUser(teacher)).toBeTruthy();
+      });
+
+      test('For the case of deleting all teacher', function() {
+        expect(admin.deleteAllTeacher()).toBeTruthy();
       });
     });
   });
