@@ -175,6 +175,7 @@ describe('All about Admin and other users', function() {
         'Science',
         'Mathematics'
       );
+
       test('For the case of deleting a student', function() {
         expect(admin.deleteUser(student)).toBeTruthy();
       });
@@ -195,10 +196,10 @@ describe('All about Admin and other users', function() {
         test('For the case of deleting all student', function() {
           expect(admin.deleteAllStudent()).toBeFalsy();
         });
-      });
 
-      test('For the case of deleting all teacher', function() {
-        expect(admin.deleteAllTeacher()).toBeFalsy();
+        test('For the case of deleting all teacher', function() {
+          expect(admin.deleteAllTeacher()).toBeFalsy();
+        });
       });
     });
   });

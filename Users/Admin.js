@@ -123,7 +123,8 @@ function getUserSets(userType) {
       usersFound.push(users[index]);
     }
   }
-  return usersFound.length === 0 ? false : usersFound;
+
+  return usersFound;
 }
 
 function deleteUsers(userType) {
