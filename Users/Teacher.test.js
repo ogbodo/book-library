@@ -13,7 +13,7 @@ describe('All about Admin own account functionalities', function() {
     );
     expect(teacher.getFirstName()).toBe('David');
   });
-  describe('Student details can be updated', function() {
+  describe('Teacher details can be updated', function() {
     var teacher = new Teacher(
       'Ayo',
       'Abidemi',
@@ -26,6 +26,16 @@ describe('All about Admin own account functionalities', function() {
     test('For the case of first name', function() {
       teacher.updateFirstName('Fola');
       expect(teacher.getFirstName()).toBe('Fola');
+    });
+
+    test('For the case of first name', function() {
+      teacher.updateFirstName('Fola');
+      expect(teacher.getFirstName()).toBe('Fola');
+    });
+
+    test('For the case of last name', function() {
+      teacher.updateLastName('Tolu');
+      expect(teacher.getLastName()).toBe('Tolu');
     });
   });
 });
