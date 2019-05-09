@@ -1,6 +1,5 @@
 var User = require('./User');
 var InheritProperty = require('./Interface/InheritProperty');
-var databaseHandler = require('../Library/database/Database');
 
 function Student(
   firstName,

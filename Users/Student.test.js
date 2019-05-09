@@ -1,6 +1,6 @@
 var Student = require('./Student');
 
-//Functionalities of Admin with respect to own account
+//Functionalities of Student with respect to own account
 describe('All about Admin own account functionalities', function() {
   test('Student can be created', function() {
     var student = new Student(
@@ -61,5 +61,17 @@ describe('All about Admin own account functionalities', function() {
       student.updateLevel('400L');
       expect(student.level).toBe('400L');
     });
+  });
+  test('Student details can be read', function() {
+    var student = new Student(
+      'Samuel',
+      'Micheal',
+      '7782310091',
+      'Male',
+      'Science',
+      'Chemistry',
+      '300L'
+    );
+    expect(student.retrieveDetails()).toEqual(student);
   });
 });
