@@ -33,7 +33,14 @@ describe('All about Admin own account functionalities', function() {
 
     test('For the case of last name', function() {
       student.updateLastName('Joshua');
+      console.log(student);
+
       expect(student.getLastName()).toBe('Joshua');
+    });
+
+    test('For the case of Matric Number', function() {
+      student.updateMatricNumber('8902311230');
+      expect(student.matricNumber).toBe('8902311230');
     });
   });
 });
