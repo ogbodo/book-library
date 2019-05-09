@@ -52,5 +52,10 @@ describe('All about Admin own account functionalities', function() {
       teacher.updateFaculty('Science');
       expect(teacher.faculty).toBe('Science');
     });
+
+    test('For the case of Department', function() {
+      teacher.updateDepartment('Biology');
+      expect(teacher.department).toBe('Biology');
+    });
   });
 });
