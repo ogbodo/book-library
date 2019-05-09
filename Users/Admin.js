@@ -107,6 +107,17 @@ Admin.prototype.getBooks = function() {
   return databaseHandler['books'];
 };
 
+Admin.prototype.updateBookTitle = function(id, newTitle) {
+  var books = this.getBooks();
+  for (var index = 0; index < books.length; index++) {
+    if (books[index].id == id) {
+      books[index].title = newTitle;
+      return books[index];
+    }
+  }
+  return false;
+};
+
 function saveBook(book) {
   databaseHandler['books'].push(book);
 }

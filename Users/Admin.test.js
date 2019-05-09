@@ -212,7 +212,7 @@ describe('All about Admin as the librarian', function() {
   });
 
   test('Admin can update a book title', function() {
-    expect(admin.updateBookTitle('3', '')).toBeTruthy();
+    expect(admin.updateBookTitle('3', 'What I Need').title).toBe('What I Need');
   });
 });
 
