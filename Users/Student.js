@@ -32,4 +32,8 @@ Student.prototype.updateFaculty = function(faculty) {
   this.faculty = faculty;
 };
 
+Student.prototype.updateDepartment = function(department) {
+  this.department = department;
+};
+
 module.exports = Student;

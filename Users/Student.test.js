@@ -51,5 +51,10 @@ describe('All about Admin own account functionalities', function() {
       student.updateFaculty('Art');
       expect(student.faculty).toBe('Art');
     });
+
+    test('For the case of Department', function() {
+      student.updateDepartment('Visual and Creative Art');
+      expect(student.department).toBe('Visual and Creative Art');
+    });
   });
 });
