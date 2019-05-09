@@ -3,8 +3,8 @@ var Book = require('../Library/Book');
 var InheritProperty = require('./Interface/InheritProperty');
 var databaseHandler = require('../Library/database/Database');
 
-function Admin(firstName, lastName) {
-  User.call(this, firstName, lastName, 'ADMIN');
+function Admin(firstName, lastName, gender) {
+  User.call(this, firstName, lastName, gender, 'ADMIN');
 }
 InheritProperty(User, Admin);
 

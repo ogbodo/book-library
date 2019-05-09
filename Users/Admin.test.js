@@ -7,12 +7,12 @@ var Student = require('./Student');
 //Functionalities of Admin with respect to own account
 describe('All about Admin own account functionalities', function() {
   test('Admin can be created', function() {
-    var admin = new Admin('Izuking', 'Ogbodo');
+    var admin = new Admin('Izuking', 'Ogbodo', 'Male');
     expect(admin.getFirstName()).toBe('Izuking');
   });
 
   describe('Admin details can be updated', function() {
-    var admin = new Admin('Treasure', ' Ogbonna');
+    var admin = new Admin('Treasure', ' Ogbonna', 'Female');
 
     test('For the case of first name', function() {
       admin.updateFirstName('Natasha');
@@ -26,12 +26,12 @@ describe('All about Admin own account functionalities', function() {
   });
 
   test('Admin account can be deleted', function() {
-    var admin = new Admin('Matthias', ' King');
+    var admin = new Admin('Matthias', ' King', 'Male');
     expect(admin.deleteAccount()).toBeTruthy();
   });
 
   test('Admin details can be read', function() {
-    var admin = new Admin('Matthias ', 'Ogbonna');
+    var admin = new Admin('Matthias ', 'Ogbonna', 'Male');
     expect(admin.retrieveDetails()).toEqual(admin);
   });
 });
@@ -39,7 +39,7 @@ describe('All about Admin own account functionalities', function() {
 //Functionalities of Admin with respect to students and teachers
 describe('All about Admin and other users', function() {
   describe('Admin can perform search on other users', function() {
-    var admin = new Admin('Matthias', ' Ogbonna');
+    var admin = new Admin('Matthias', ' Ogbonna', 'Male');
 
     var student = new Student(
       'Solomon',
@@ -97,7 +97,7 @@ describe('All about Admin and other users', function() {
     });
 
     describe('Admin can delete other users', function() {
-      var admin = new Admin('Matthias', ' Ogbonna');
+      var admin = new Admin('Matthias', ' Ogbonna', 'Male');
 
       var student = new Student(
         'Lydia',
@@ -127,7 +127,7 @@ describe('All about Admin and other users', function() {
     });
 
     describe('Admin can read other users by Matric Number or Staff Id', function() {
-      var admin = new Admin('Matthias', ' Ogbonna');
+      var admin = new Admin('Matthias', ' Ogbonna', 'Male');
 
       var student = new Student(
         'Mary',
@@ -168,7 +168,7 @@ describe('All about Admin and other users', function() {
 
 //Functionalities of Admin with respect to the Library
 describe('All about Admin as the librarian', function() {
-  var admin = new Admin('Matthias', ' Ogbonna');
+  var admin = new Admin('Matthias', ' Ogbonna', 'Male');
 
   test('Admin can add new books into the library', function() {
     expect(
