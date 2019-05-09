@@ -9,7 +9,7 @@ function Admin(firstName, lastName) {
 InheritProperty(User, Admin);
 
 Admin.prototype.searchUserByID = function(id) {
-  var users = databaseHandler['users'];
+  var users = this.getUsers();
   for (var index = 0; index < users.length; index++) {
     if (users[index].id === id) {
       return users[index];
@@ -19,7 +19,7 @@ Admin.prototype.searchUserByID = function(id) {
 };
 
 Admin.prototype.searchUserByName = function(name) {
-  var users = databaseHandler['users'],
+  var users = this.getUsers(),
     results = [];
   for (var index = 0; index < users.length; index++) {
     if (users[index].firstName === name || users[index].lastName === name) {
@@ -30,7 +30,7 @@ Admin.prototype.searchUserByName = function(name) {
 };
 
 Admin.prototype.deleteUser = function(user) {
-  var users = databaseHandler['users'];
+  var users = this.getUsers();
   for (var index = 0; index < users.length; index++) {
     if (users[index].id === user.id) {
       users.splice(index, 1);
@@ -40,7 +40,7 @@ Admin.prototype.deleteUser = function(user) {
 };
 
 Admin.prototype.readStudent = function(matricNumber) {
-  var users = databaseHandler['users'];
+  var users = this.getUsers();
   for (var index = 0; index < users.length; index++) {
     if (users[index].matricNumber === matricNumber) {
       return users[index];
@@ -50,7 +50,7 @@ Admin.prototype.readStudent = function(matricNumber) {
 };
 
 Admin.prototype.readTeacher = function(staffId) {
-  var users = databaseHandler['users'];
+  var users = this.getUsers();
   for (var index = 0; index < users.length; index++) {
     if (users[index].staffId === staffId) {
       return users[index];
@@ -60,15 +60,14 @@ Admin.prototype.readTeacher = function(staffId) {
 };
 
 Admin.prototype.addBook = function(title, category, author) {
-  var book = new Book(title, category, author, getTodayDate());
-  databaseHandler['books'].push(book);
+  var book = new Book(title, category, author);
+  saveBook(book);
   console.log(book);
-
   return book;
 };
 
 Admin.prototype.getBooksByTitle = function(title) {
-  var books = databaseHandler['books'],
+  var books = this.getBooks(),
     booksFound = [];
   for (var index = 0; index < books.length; index++) {
     if (books[index].title === title) {
@@ -79,7 +78,7 @@ Admin.prototype.getBooksByTitle = function(title) {
 };
 
 Admin.prototype.getBooksByAuthor = function(author) {
-  var books = databaseHandler['books'],
+  var books = this.getBooks(),
     booksFound = [];
   for (var index = 0; index < books.length; index++) {
     if (books[index].author === author) {
@@ -90,7 +89,7 @@ Admin.prototype.getBooksByAuthor = function(author) {
 };
 
 Admin.prototype.getBooksByDate = function(date) {
-  var books = databaseHandler['books'],
+  var books = this.getBooks(),
     booksFound = [];
   for (var index = 0; index < books.length; index++) {
     if (books[index].date === date) {
@@ -100,12 +99,16 @@ Admin.prototype.getBooksByDate = function(date) {
   return booksFound.length === 0 ? false : booksFound;
 };
 
+Admin.prototype.getUsers = function() {
+  return databaseHandler['users'];
+};
+
 Admin.prototype.getBooks = function() {
   return databaseHandler['books'];
 };
 
-function getTodayDate() {
-  return new Date().toLocaleDateString();
+function saveBook(book) {
+  databaseHandler['books'].push(book);
 }
 
 module.exports = Admin;

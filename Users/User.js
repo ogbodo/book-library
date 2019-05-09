@@ -6,7 +6,6 @@ function User(firstName, lastName, userType) {
   this.userType = userType;
   this.id = generateUserId();
   this.save();
-  console.log('User saved: ', this);
 }
 
 User.prototype.getFirstName = function() {
@@ -19,20 +18,14 @@ User.prototype.getLastName = function() {
 
 User.prototype.updateFirstName = function(name) {
   this.firstName = name;
-  console.log('Updated FirstName: ', this);
 };
 
 User.prototype.updateLastName = function(name) {
   this.lastName = name;
-  console.log('Updated LastName: ', this);
-};
-
-User.prototype.save = function() {
-  databaseHandler['users'].push(this);
 };
 
 User.prototype.deleteAccount = function() {
-  var users = databaseHandler['users'];
+  var users = getUsers();
   for (var index = 0; index < users.length; index++) {
     if (users[index].id === this.id) {
       users.splice(index, 1);
@@ -42,7 +35,7 @@ User.prototype.deleteAccount = function() {
 };
 
 User.prototype.retrieveDetails = function() {
-  var users = databaseHandler['users'];
+  var users = getUsers();
   for (var index = 0; index < users.length; index++) {
     if (users[index].id === this.id) {
       return users[index];
@@ -51,7 +44,15 @@ User.prototype.retrieveDetails = function() {
 };
 
 function generateUserId() {
-  var users = databaseHandler['users'];
+  var users = getUsers();
   return users.length > 0 ? users[users.length - 1].id + 1 : 1;
+}
+
+User.prototype.save = function() {
+  databaseHandler['users'].push(this);
+};
+
+function getUsers() {
+  return databaseHandler['users'];
 }
 module.exports = User;

@@ -177,8 +177,8 @@ describe('All about Admin as the librarian', function() {
   });
 
   test('Admin can read books by title', function() {
-    admin.addBook('What Men Want', 'Journal', 'Izuking Ogbodo');
-    expect(admin.getBooksByTitle('What Men Want')).toBeTruthy();
+    admin.addBook('Chike the River', 'Literature', 'Chinuwa Achebe');
+    expect(admin.getBooksByTitle('Chike the River')).toBeTruthy();
   });
 
   test('Admin trying to read books by none existing title', function() {
@@ -205,6 +205,14 @@ describe('All about Admin as the librarian', function() {
 
   test('Admin can read all books', function() {
     expect(admin.getBooks()).toBeTruthy();
+  });
+
+  test('Admin can read all books', function() {
+    expect(admin.getBooks()).toBeTruthy();
+  });
+
+  test('Admin can update a book title', function() {
+    expect(admin.updateBookTitle('3', '')).toBeTruthy();
   });
 });
 
