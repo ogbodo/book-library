@@ -59,82 +59,40 @@ Admin.prototype.readTeacher = function(staffId) {
   return false;
 };
 
-Admin.prototype.addBook = function(title, category, author) {
-  var book = new Book(title, category, author);
-  saveBook(book);
-  console.log(book);
-  return book;
-};
-
-Admin.prototype.getBooksByTitle = function(title) {
-  var books = this.getBooks(),
-    booksFound = [];
-  for (var index = 0; index < books.length; index++) {
-    if (books[index].title === title) {
-      booksFound.push(books[index]);
-    }
-  }
-  return booksFound.length === 0 ? false : booksFound;
-};
-
-Admin.prototype.getBooksByAuthor = function(author) {
-  var books = this.getBooks(),
-    booksFound = [];
-  for (var index = 0; index < books.length; index++) {
-    if (books[index].author === author) {
-      booksFound.push(books[index]);
-    }
-  }
-  return booksFound.length === 0 ? false : booksFound;
-};
-
-Admin.prototype.getBooksByDate = function(date) {
-  var books = this.getBooks(),
-    booksFound = [];
-  for (var index = 0; index < books.length; index++) {
-    if (books[index].date === date) {
-      booksFound.push(books[index]);
-    }
-  }
-  return booksFound.length === 0 ? false : booksFound;
-};
-
 Admin.prototype.getUsers = function() {
   return databaseHandler['users'];
 };
 
-Admin.prototype.getBooks = function() {
-  return databaseHandler['books'];
+Admin.prototype.addBook = function(title, category, author) {
+  return Book.prototype.create(title, category, author);
+};
+
+Admin.prototype.getBooksByTitle = function(title) {
+  return Book.prototype.getByTitle(title);
+};
+
+Admin.prototype.getBooksByAuthor = function(author) {
+  return Book.prototype.getByAuthor(author);
+};
+
+Admin.prototype.getBooksByDate = function(date) {
+  return Book.prototype.getByDate(date);
+};
+
+Admin.prototype.getAllBooks = function() {
+  return Book.prototype.getBooks();
 };
 
 Admin.prototype.updateBookTitle = function(book, newTitle) {
-  var books = this.getBooks();
-  for (var index = 0; index < books.length; index++) {
-    if (books[index].id == book.id) {
-      books[index].title = newTitle;
-      return books[index];
-    }
-  }
+  return Book.prototype.updateTitle(book, newTitle);
 };
 
 Admin.prototype.deleteBook = function(book) {
-  var books = this.getBooks();
-  for (var index = 0; index < books.length; index++) {
-    if (books[index].id === book.id) {
-      books.splice(index, 1);
-      return true;
-    }
-  }
+  return Book.prototype.delete(book);
 };
 
-Admin.prototype.deleteBooks = function(book) {
-  var books = this.getBooks();
-  books.splice(0, books.length - 1);
-  return true;
+Admin.prototype.deleteBooks = function() {
+  return Book.prototype.deleteAll();
 };
-
-function saveBook(book) {
-  databaseHandler['books'].push(book);
-}
 
 module.exports = Admin;

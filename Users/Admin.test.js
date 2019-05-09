@@ -207,7 +207,7 @@ describe('All about Admin as the librarian', function() {
     });
 
     test('Admin can get all books', function() {
-      expect(admin.getBooks()).toBeTruthy();
+      expect(admin.getAllBooks()).toBeTruthy();
     });
   });
 
@@ -232,7 +232,7 @@ describe('All about Admin as the librarian', function() {
       expect(admin.deleteBook(newBook)).toBeTruthy();
     });
     test('Admin can delete all book', function() {
-      expect(admin.deleteBooks()).toBeTruthy();
+      expect(admin.deleteBooks()).toBe(0);
     });
   });
 });
