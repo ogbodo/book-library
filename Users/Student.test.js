@@ -74,4 +74,18 @@ describe('All about Admin own account functionalities', function() {
     );
     expect(student.retrieveDetails()).toEqual(student);
   });
+
+  test('Student account can be deleted', function() {
+    var student = new Student(
+      'Samuel',
+      'Micheal',
+      '7782310091',
+      'Male',
+      'Science',
+      'Chemistry',
+      '300L'
+    );
+    expect(student.deleteAccount()).toBeTruthy();
+  });
 });
+/**TODO TRY NOT TO ADD USERS WITH SAME MATRIC NUMBER OR STAFF ID*/
