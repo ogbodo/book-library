@@ -63,6 +63,10 @@ Admin.prototype.getUsers = function() {
   return databaseHandler['users'];
 };
 
+Admin.prototype.getAllTeachers = function() {
+  return getUserSets('TEACHER');
+};
+
 Admin.prototype.addBook = function(title, category, author) {
   return Book.prototype.create(title, category, author);
 };
@@ -95,4 +99,14 @@ Admin.prototype.deleteBooks = function() {
   return Book.prototype.deleteAll();
 };
 
+function getUserSets(userType) {
+  var users = Admin.prototype.getUsers(),
+    usersFound = [];
+  for (var index = 0; index < users.length; index++) {
+    if (users[index].userType == userType) {
+      usersFound.push(users[index]);
+    }
+  }
+  return usersFound.length === 0 ? false : usersFound;
+}
 module.exports = Admin;

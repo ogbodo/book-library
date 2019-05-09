@@ -38,6 +38,14 @@ describe('All about Admin own account functionalities', function() {
 
 //Functionalities of Admin with respect to students and teachers
 describe('All about Admin and other users', function() {
+  describe('Admin can perform group search on all users', function() {
+    var admin = new Admin('Matthias', ' Ogbonna', 'Male');
+
+    test('For the case of Admin to get all teachers', function() {
+      expect(admin.getAllTeachers()).toBeTruthy();
+    });
+  });
+
   describe('Admin can perform search on other users', function() {
     var admin = new Admin('Matthias', ' Ogbonna', 'Male');
 
@@ -237,4 +245,6 @@ describe('All about Admin as the librarian', function() {
   });
 });
 
-/**TODO add methods for book like getTitle() etc */
+/**TODO add methods for book like getTitle() etc
+ * ALSO, LATER SEE IF ALL THE IF...ELSE PARTS CAN BE REPLACED WITH REGEX.
+ */
