@@ -185,6 +185,15 @@ describe('All about Admin as the librarian', function() {
     admin.addBook('What Women Want', 'Magazine', 'Izuking Ogbodo');
     expect(admin.getBookByAuthor('Izuking Ogbodo')).toBeTruthy();
   });
+
+  test('Admin can read books by date added', function() {
+    admin.addBook('What Women Want', 'Magazine', 'Izuking Ogbodo');
+    expect(admin.getBookByDate(new Date().toLocaleDateString())).toBeTruthy();
+  });
+
+  test('Admin trying to read books by none existing date', function() {
+    expect(admin.getBookByDate('5/9/2020')).toBeFalsy();
+  });
 });
 
 /**TODO add methods for book like getTitle() etc */
