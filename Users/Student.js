@@ -24,4 +24,8 @@ Student.prototype.updateMatricNumber = function(newMatricNumber) {
   this.matricNumber = newMatricNumber;
 };
 
+Student.prototype.updateGender = function(gender) {
+  this.gender = gender;
+};
+
 module.exports = Student;
