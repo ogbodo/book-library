@@ -58,4 +58,17 @@ describe('All about Admin own account functionalities', function() {
       expect(teacher.department).toBe('Biology');
     });
   });
+
+  test('Teacher details can be read', function() {
+    var teacher = new Teacher(
+      'Bamidele',
+      'Olamide',
+      'Dev/12/310',
+      'Male',
+      'Social Science',
+      'Political Science'
+    );
+
+    expect(teacher.retrieveDetails()).toEqual(teacher);
+  });
 });
