@@ -37,5 +37,10 @@ describe('All about Admin own account functionalities', function() {
       teacher.updateLastName('Tolu');
       expect(teacher.getLastName()).toBe('Tolu');
     });
+
+    test('For the case of StaffId', function() {
+      teacher.updateStaffId('Dev/89/0023');
+      expect(teacher.staffId).toBe('Dev/89/0023');
+    });
   });
 });

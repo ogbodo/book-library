@@ -9,4 +9,8 @@ function Teacher(firstName, LastName, staffId, gender, faculty, department) {
   User.call(this, firstName, LastName, 'TEACHER');
 }
 InheritProperty(User, Teacher);
+
+Teacher.prototype.updateStaffId = function(newStaffId) {
+  this.staffId = newStaffId;
+};
 module.exports = Teacher;
