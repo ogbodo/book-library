@@ -127,6 +127,12 @@ Admin.prototype.deleteBook = function(book) {
   }
 };
 
+Admin.prototype.deleteBooks = function(book) {
+  var books = this.getBooks();
+  books.splice(0, books.length - 1);
+  return true;
+};
+
 function saveBook(book) {
   databaseHandler['books'].push(book);
 }
