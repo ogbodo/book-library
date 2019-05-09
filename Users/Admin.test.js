@@ -115,9 +115,9 @@ describe('Admin can perform search on other users', function() {
       expect(admin.deleteUser(student)).toBeTruthy();
     });
 
-    // test('For the case of deleting a staff', function() {
-    //   expect(admin.deleteUser(teacher)).toBeTruthy();
-    // });
+    test('For the case of deleting a staff', function() {
+      expect(admin.deleteUser(teacher)).toBeTruthy();
+    });
   });
 });
 
