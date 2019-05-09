@@ -28,4 +28,8 @@ Student.prototype.updateGender = function(gender) {
   this.gender = gender;
 };
 
+Student.prototype.updateFaculty = function(faculty) {
+  this.faculty = faculty;
+};
+
 module.exports = Student;

@@ -42,9 +42,14 @@ describe('All about Admin own account functionalities', function() {
       expect(student.matricNumber).toBe('8902311230');
     });
 
-    test('For the case of gender', function() {
+    test('For the case of Gender', function() {
       student.updateGender('Female');
       expect(student.gender).toBe('Female');
+    });
+
+    test('For the case of Faculty', function() {
+      student.updateFaculty('Art');
+      expect(student.faculty).toBe('Art');
     });
   });
 });
