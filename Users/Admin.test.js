@@ -170,15 +170,20 @@ describe('All about Admin and other users', function() {
 describe('All about Admin as the librarian', function() {
   var admin = new Admin('Matthias', ' Ogbonna');
 
-  test('Admin can add new book into the library', function() {
+  test('Admin can add new books into the library', function() {
     expect(
       admin.addBook('What Men Want', 'Journal', 'Izuking Ogbodo')
     ).toBeTruthy();
   });
 
-  test('Admin can read book by title', function() {
+  test('Admin can read books by title', function() {
     admin.addBook('What Men Want', 'Journal', 'Izuking Ogbodo');
     expect(admin.getBookByTitle('What Men Want')).toBeTruthy();
+  });
+
+  test('Admin can read books by author', function() {
+    admin.addBook('What Women Want', 'Magazine', 'Izuking Ogbodo');
+    expect(admin.getBookByAuthor('Izuking Ogbodo')).toBeTruthy();
   });
 });
 

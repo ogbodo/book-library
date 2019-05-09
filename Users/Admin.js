@@ -78,6 +78,17 @@ Admin.prototype.getBookByTitle = function(title) {
   return booksFound.length === 0 ? false : booksFound;
 };
 
+Admin.prototype.getBookByAuthor = function(author) {
+  var books = databaseHandler['books'],
+    booksFound = [];
+  for (var index = 0; index < books.length; index++) {
+    if (books[index].author === author) {
+      booksFound.push(books[index]);
+    }
+  }
+  return booksFound.length === 0 ? false : booksFound;
+};
+
 function getTodayDate() {
   return new Date().toLocaleDateString();
 }
