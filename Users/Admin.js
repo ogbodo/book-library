@@ -67,6 +67,10 @@ Admin.prototype.getAllTeachers = function() {
   return getUserSets('TEACHER');
 };
 
+Admin.prototype.getAllStudents = function() {
+  return getUserSets('STUDENT');
+};
+
 Admin.prototype.addBook = function(title, category, author) {
   return Book.prototype.create(title, category, author);
 };

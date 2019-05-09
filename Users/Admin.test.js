@@ -44,6 +44,10 @@ describe('All about Admin and other users', function() {
     test('For the case of Admin to get all teachers', function() {
       expect(admin.getAllTeachers()).toBeTruthy();
     });
+
+    test('For the case of Admin to get all students', function() {
+      expect(admin.getAllStudents()).toBeTruthy();
+    });
   });
 
   describe('Admin can perform search on other users', function() {
