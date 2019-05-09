@@ -178,29 +178,33 @@ describe('All about Admin as the librarian', function() {
 
   test('Admin can read books by title', function() {
     admin.addBook('What Men Want', 'Journal', 'Izuking Ogbodo');
-    expect(admin.getBookByTitle('What Men Want')).toBeTruthy();
+    expect(admin.getBooksByTitle('What Men Want')).toBeTruthy();
   });
 
   test('Admin trying to read books by none existing title', function() {
-    expect(admin.getBookByTitle('The angel and devil')).toBeFalsy();
+    expect(admin.getBooksByTitle('The angel and devil')).toBeFalsy();
   });
 
   test('Admin can read books by author', function() {
     admin.addBook('What Women Want', 'Magazine', 'Izuking Ogbodo');
-    expect(admin.getBookByAuthor('Izuking Ogbodo')).toBeTruthy();
+    expect(admin.getBooksByAuthor('Izuking Ogbodo')).toBeTruthy();
   });
 
   test('Admin trying to read books by none existing author', function() {
-    expect(admin.getBookByAuthor('David Ayo')).toBeFalsy();
+    expect(admin.getBooksByAuthor('David Ayo')).toBeFalsy();
   });
 
   test('Admin can read books by date added', function() {
     admin.addBook('What Women Want', 'Magazine', 'Izuking Ogbodo');
-    expect(admin.getBookByDate(new Date().toLocaleDateString())).toBeTruthy();
+    expect(admin.getBooksByDate(new Date().toLocaleDateString())).toBeTruthy();
   });
 
   test('Admin trying to read books by none existing date', function() {
-    expect(admin.getBookByDate('5/9/2020')).toBeFalsy();
+    expect(admin.getBooksByDate('5/9/2020')).toBeFalsy();
+  });
+
+  test('Admin can read all books', function() {
+    expect(admin.getBooks()).toBeTruthy();
   });
 });
 

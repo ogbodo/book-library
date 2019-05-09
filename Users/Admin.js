@@ -67,7 +67,7 @@ Admin.prototype.addBook = function(title, category, author) {
   return book;
 };
 
-Admin.prototype.getBookByTitle = function(title) {
+Admin.prototype.getBooksByTitle = function(title) {
   var books = databaseHandler['books'],
     booksFound = [];
   for (var index = 0; index < books.length; index++) {
@@ -78,7 +78,7 @@ Admin.prototype.getBookByTitle = function(title) {
   return booksFound.length === 0 ? false : booksFound;
 };
 
-Admin.prototype.getBookByAuthor = function(author) {
+Admin.prototype.getBooksByAuthor = function(author) {
   var books = databaseHandler['books'],
     booksFound = [];
   for (var index = 0; index < books.length; index++) {
@@ -89,7 +89,7 @@ Admin.prototype.getBookByAuthor = function(author) {
   return booksFound.length === 0 ? false : booksFound;
 };
 
-Admin.prototype.getBookByDate = function(date) {
+Admin.prototype.getBooksByDate = function(date) {
   var books = databaseHandler['books'],
     booksFound = [];
   for (var index = 0; index < books.length; index++) {
@@ -98,6 +98,10 @@ Admin.prototype.getBookByDate = function(date) {
     }
   }
   return booksFound.length === 0 ? false : booksFound;
+};
+
+Admin.prototype.getBooks = function() {
+  return databaseHandler['books'];
 };
 
 function getTodayDate() {
