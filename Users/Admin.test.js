@@ -186,8 +186,15 @@ describe('All about Admin and other users', function() {
       test('For the case of deleting all teacher', function() {
         expect(admin.deleteAllTeacher()).toBeTruthy();
       });
+
       test('For the case of deleting all student', function() {
         expect(admin.deleteAllStudent()).toBeTruthy();
+      });
+
+      describe('For the case where admin wants to delete users when none exists', function() {
+        test('For the case of deleting all student', function() {
+          expect(admin.deleteAllStudent()).toBeFalsy();
+        });
       });
     });
   });
