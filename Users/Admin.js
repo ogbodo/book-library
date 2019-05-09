@@ -1,4 +1,5 @@
 var User = require('./User');
+var Book = require('../Library/Book');
 var InheritProperty = require('./Interface/InheritProperty');
 var databaseHandler = require('../Library/database/Database');
 
@@ -57,5 +58,17 @@ Admin.prototype.readTeacher = function(staffId) {
   }
   return false;
 };
+
+Admin.prototype.addBook = function(title, category, quantity, author) {
+  var book = new Book(title, category, quantity, author, getTodayDate());
+  databaseHandler['books'].push(book);
+  console.log(book);
+
+  return book;
+};
+
+function getTodayDate() {
+  return new Date().toLocaleDateString();
+}
 
 module.exports = Admin;

@@ -167,6 +167,14 @@ describe('All about Admin and other users', function() {
 });
 
 //Functionalities of Admin with respect to the Library
-describe('All about Admin as the librarian', function() {});
+describe('All about Admin as the librarian', function() {
+  var admin = new Admin('Matthias', ' Ogbonna');
+
+  test('Admin can add new book into the library', function() {
+    expect(
+      admin.addBook('What Men Want', 'Journal', 220, 'Izuking Ogbodo')
+    ).toBeTruthy();
+  });
+});
 
 /**TODO add methods for book like getTitle() etc */
