@@ -1,8 +1,9 @@
 var databaseHandler = require('../Library/database/Database');
 
-function User(firstName, lastName, userType) {
+function User(firstName, lastName, gender, userType) {
   this.firstName = firstName;
   this.lastName = lastName;
+  this.gender = gender;
   this.userType = userType;
   this.id = generateUserId();
   this.save();
@@ -41,6 +42,26 @@ User.prototype.retrieveDetails = function() {
       return users[index];
     }
   }
+};
+
+User.prototype.setFaculty = function(faculty) {
+  this.faculty = faculty;
+};
+
+User.prototype.setDepartment = function(department) {
+  this.department = department;
+};
+
+User.prototype.updateGender = function(gender) {
+  this.gender = gender;
+};
+
+User.prototype.updateFaculty = function(faculty) {
+  this.faculty = faculty;
+};
+
+User.prototype.updateDepartment = function(department) {
+  this.department = department;
 };
 
 function generateUserId() {
