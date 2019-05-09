@@ -40,15 +40,11 @@ Admin.prototype.deleteUser = function(user) {
 };
 
 Admin.prototype.deleteAllTeacher = function() {
-  var users = this.getUsers(),
-    madeDeletion = false;
-  for (var index = 0; index < users.length; index++) {
-    if (users[index].userType === 'TEACHER') {
-      users.splice(index, 1);
-      madeDeletion = true;
-    }
-  }
-  return madeDeletion;
+  return deleteUsers('TEACHER');
+};
+
+Admin.prototype.deleteAllStudent = function() {
+  return deleteUsers('STUDENT');
 };
 
 Admin.prototype.readStudent = function(matricNumber) {
@@ -129,4 +125,17 @@ function getUserSets(userType) {
   }
   return usersFound.length === 0 ? false : usersFound;
 }
+
+function deleteUsers(userType) {
+  var users = Admin.prototype.getUsers(),
+    madeDeletion = false;
+  for (var index = 0; index < users.length; index++) {
+    if (users[index].userType === userType) {
+      users.splice(index, 1);
+      madeDeletion = true;
+    }
+  }
+  return madeDeletion;
+}
+
 module.exports = Admin;
