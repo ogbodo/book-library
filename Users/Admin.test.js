@@ -148,6 +148,14 @@ describe('Admin can perform search on other users', function() {
     test('For the case of deleting a staff', function() {
       expect(admin.readTeacher(teacher.staffId)).toEqual(teacher);
     });
+
+    test('For the case of reading a student by wrong Matric Number', function() {
+      expect(admin.readStudent('111110000899')).toBeFalsy();
+    });
+
+    // test('For the case of deleting a staff', function() {
+    //   expect(admin.readTeacher(teacher.staffId)).toEqual(teacher);
+    // });
   });
 });
 
