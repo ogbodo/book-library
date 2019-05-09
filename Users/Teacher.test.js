@@ -71,4 +71,16 @@ describe('All about Admin own account functionalities', function() {
 
     expect(teacher.retrieveDetails()).toEqual(teacher);
   });
+
+  test('Teacher account can be deleted', function() {
+    var teacher = new Teacher(
+      'Ayo',
+      'Olamide',
+      'Dev/102/910',
+      'Female',
+      'Social Science',
+      'Political Science'
+    );
+    expect(teacher.deleteAccount()).toBeTruthy();
+  });
 });
