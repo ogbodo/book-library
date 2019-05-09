@@ -31,9 +31,9 @@ describe('All about Admin own account functionalities', function() {
       expect(student.getFirstName()).toBe('Ebuka');
     });
 
-    // test('For the case of last name', function() {
-    //   admin.updateLastName('Ade');
-    //   expect(admin.getLastName()).toBe('Ade');
-    // });
+    test('For the case of last name', function() {
+      student.updateLastName('Joshua');
+      expect(student.getLastName()).toBe('Joshua');
+    });
   });
 });
