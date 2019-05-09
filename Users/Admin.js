@@ -1,5 +1,5 @@
 var User = require('./User');
-var Book = require('../Library/Book');
+var BookLibrary = require('../Library/BookLibrary');
 var InheritProperty = require('./Interface/InheritProperty');
 var databaseHandler = require('../Library/database/Database');
 
@@ -84,35 +84,35 @@ Admin.prototype.getAllAdmins = function() {
 };
 
 Admin.prototype.addBook = function(title, category, author) {
-  return Book.prototype.create(title, category, author);
+  return BookLibrary.prototype.create(title, category, author);
 };
 
 Admin.prototype.getBooksByTitle = function(title) {
-  return Book.prototype.getByTitle(title);
+  return BookLibrary.prototype.getByTitle(title);
 };
 
 Admin.prototype.getBooksByAuthor = function(author) {
-  return Book.prototype.getByAuthor(author);
+  return BookLibrary.prototype.getByAuthor(author);
 };
 
 Admin.prototype.getBooksByDate = function(date) {
-  return Book.prototype.getByDate(date);
+  return BookLibrary.prototype.getByDate(date);
 };
 
 Admin.prototype.getAllBooks = function() {
-  return Book.prototype.getBooks();
+  return BookLibrary.prototype.getBooks();
 };
 
 Admin.prototype.updateBookTitle = function(book, newTitle) {
-  return Book.prototype.updateTitle(book, newTitle);
+  return BookLibrary.prototype.updateTitle(book, newTitle);
 };
 
 Admin.prototype.deleteBook = function(book) {
-  return Book.prototype.delete(book);
+  return BookLibrary.prototype.delete(book);
 };
 
 Admin.prototype.deleteBooks = function() {
-  return Book.prototype.deleteAll();
+  return BookLibrary.prototype.deleteAll();
 };
 
 function getUserSets(userType) {
