@@ -318,20 +318,20 @@ describe('All about Admin as the librarian', function() {
     });
   });
 
-  // describe('Admin can perform deletion of books', function() {
-  //   test('Admin can delete a book', function() {
-  //     var newBook = admin.addBook(
-  //       'Chike the River',
-  //       'Literature',
-  //       'Chinuwa Achebe'
-  //     );
-  //     expect(admin.deleteBook(newBook)).toBeTruthy();
-  //   });
+  describe('Admin can perform deletion of books', function() {
+    test('Admin can delete a book', function() {
+      var newBook = admin.addBook(
+        'Chike the River',
+        'Literature',
+        'Chinuwa Achebe'
+      );
+      expect(admin.deleteBook(newBook)).toBeTruthy();
+    });
 
-  //   test('Admin can delete all book', function() {
-  //     expect(admin.deleteBooks()).toBe(0);
-  //   });
-  // });
+    test('Admin can delete all book', function() {
+      expect(admin.deleteBooks()).toBe(0);
+    });
+  });
 });
 
 /**
