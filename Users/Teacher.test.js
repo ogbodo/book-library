@@ -1,4 +1,5 @@
 var Teacher = require('./Teacher');
+var Admin = require('./Admin');
 
 //Functionalities of Teacher with respect to own account
 describe('All about Admin own account functionalities', function() {
@@ -82,5 +83,47 @@ describe('All about Admin own account functionalities', function() {
       'Political Science'
     );
     expect(teacher.deleteAccount()).toBeTruthy();
+  });
+});
+
+describe('Teacher borrowing book', function() {
+  var teacher = new Teacher(
+    'Ashemole',
+    'Mike',
+    'Dev/98/0023',
+    'Male',
+    'Science',
+    'Mathematics'
+  );
+
+  var admin = new Admin('Izuking', 'Ogbodo', 'Male');
+
+  admin.addBook('What Women Want', 'Magazine', 'Treasure Ogbonna');
+  admin.addBook('What Women Want', 'Magazine', 'Treasure Ogbonna');
+  admin.addBook('Chike the River', 'Literature', 'Chinuwa Achebe');
+  admin.addBook('What Men Want', 'Journal', 'Izuking Ogbodo');
+
+  test('For the case where a student demands for book and its available', function() {
+    expect(teacher.borrowBook('Chike the River', 'Chinuwa Achebe').userId).toBe(
+      teacher.id
+    );
+  });
+
+  test('For the case where same student demands for another book and its available', function() {
+    expect(
+      teacher.borrowBook('What Women Want', 'Treasure Ogbonna').userId
+    ).toBe(teacher.id);
+  });
+
+  test('For the case where same user demands for another copy of same book but its unavailable', function() {
+    expect(teacher.borrowBook('Chike the River', 'Chinuwa Achebe')).toBe(
+      'Book Taken'
+    );
+  });
+
+  test('For the case where same user demands for a book that is not in the library', function() {
+    expect(teacher.borrowBook('Software Mastering', 'Izuchukwu Ogbodo')).toBe(
+      'Not Found'
+    );
   });
 });

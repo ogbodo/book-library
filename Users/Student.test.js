@@ -113,8 +113,8 @@ describe('Student borrowing book', function() {
   });
 
   test('For the case where same user demands for a book that is not in the library', function() {
-    expect(
-      admin.lendBook(student, 'Software Mastering', 'Izuchukwu Ogbodo')
-    ).toBe('Not Found');
+    expect(student.borrowBook('Software Mastering', 'Izuchukwu Ogbodo')).toBe(
+      'Not Found'
+    );
   });
 });

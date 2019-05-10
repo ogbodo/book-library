@@ -1,5 +1,6 @@
 var User = require('./User');
 var InheritProperty = require('./Interface/InheritProperty');
+var Admin = require('./Admin');
 
 function Teacher(firstName, LastName, staffId, gender, faculty, department) {
   this.staffId = staffId;
@@ -13,4 +14,7 @@ Teacher.prototype.updateStaffId = function(newStaffId) {
   this.staffId = newStaffId;
 };
 
+Teacher.prototype.borrowBook = function(title, author) {
+  return Admin.prototype.lendBook(this, title, author);
+};
 module.exports = Teacher;
