@@ -88,4 +88,3 @@ describe('All about Student own account functionalities', function() {
     expect(student.deleteAccount()).toBeTruthy();
   });
 });
-/**TODO TRY NOT TO ADD USERS WITH SAME MATRIC NUMBER OR STAFF ID*/

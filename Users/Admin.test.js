@@ -211,15 +211,15 @@ describe('All about Admin as the librarian', function() {
 
   test('Admin can add new books into the library', function() {
     expect(
-      admin.addBook('What Men Want', 'Journal', 'Izuking Ogbodo')
-    ).toBeTruthy();
+      admin.addBook('What Men Want', 'Journal', 'Izuking Ogbodo').title
+    ).toBe('What Men Want');
   });
 
   describe('Admin can perform retrieval of books', function() {
     admin.addBook('Chike the River', 'Literature', 'Chinuwa Achebe');
 
     test('Admin can get books by title', function() {
-      expect(admin.getBooksByTitle('Chike the River')).toBeTruthy();
+      expect(admin.getBooksByTitle('Chike the River').length).toBe(1);
     });
 
     test('Admin trying to get books by none existing title', function() {
@@ -229,7 +229,7 @@ describe('All about Admin as the librarian', function() {
     test('Admin can get books by author', function() {
       admin.addBook('What Women Want', 'Magazine', 'Izuking Ogbodo');
       admin.addBook('What Women Want', 'Magazine', 'Izuking Ogbodo');
-      expect(admin.getBooksByAuthor('Izuking Ogbodo')).toBeTruthy();
+      expect(admin.getBooksByAuthor('Izuking Ogbodo').length).toBe(3);
     });
 
     test('Admin trying to get books by none existing author', function() {
@@ -239,9 +239,9 @@ describe('All about Admin as the librarian', function() {
     test('Admin can get books by date added', function() {
       admin.addBook('What Women Want', 'Magazine', 'Treasure Ogbonna');
       admin.addBook('What Women Want', 'Magazine', 'Treasure Ogbonna');
-      expect(
-        admin.getBooksByDate(new Date().toLocaleDateString())
-      ).toBeTruthy();
+      expect(admin.getBooksByDate(new Date().toLocaleDateString()).length).toBe(
+        8
+      );
     });
 
     test('Admin trying to get books by none existing date', function() {
@@ -249,7 +249,7 @@ describe('All about Admin as the librarian', function() {
     });
 
     test('Admin can get all books', function() {
-      expect(admin.getAllBooks()).toBeTruthy();
+      expect(admin.getAllBooks().length).toBe(8);
     });
   });
 
