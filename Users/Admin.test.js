@@ -266,6 +266,7 @@ describe('All about Admin as the librarian', function() {
 
   describe('Admin can perform lending of books', function() {
     admin.addBook('Become a Good Librarian', 'Journal', 'Mcan long');
+
     test('For the case where admin demands for book and its available', function() {
       expect(
         admin.lendBook(admin, 'Become a Good Librarian', 'Mcan long').userId
@@ -290,38 +291,6 @@ describe('All about Admin as the librarian', function() {
       'Science',
       'Mathematics'
     );
-
-    describe('Between Admin and a single user at a time', function() {
-      test('For the case where a student demands for book and its available', function() {
-        expect(
-          admin.lendBook(student, 'Chike the River', 'Chinuwa Achebe').userId
-        ).toBe(student.id);
-      });
-
-      test('For the case where same student demands for another book and its available', function() {
-        expect(
-          admin.lendBook(student, 'What Women Want', 'Izuking Ogbodo').userId
-        ).toBe(student.id);
-      });
-
-      test('For the case where teacher demands for a copy of book and its available', function() {
-        expect(
-          admin.lendBook(teacher, 'Chike the River', 'Chinuwa Achebe').userId
-        ).toBe(teacher.id);
-      });
-
-      test('For the case where same user demands for another copy of same book but its unavailable', function() {
-        expect(
-          admin.lendBook(student, 'Chike the River', 'Chinuwa Achebe')
-        ).toBe('Book Taken');
-      });
-
-      test('For the case where same user demands for a book that is not in the library', function() {
-        expect(
-          admin.lendBook(student, 'Software Mastering', 'Izuchukwu Ogbodo')
-        ).toBe('Not Found');
-      });
-    });
 
     describe('Between Admin and two users', function() {
       describe('Priority between teacher and student users', function() {
@@ -423,7 +392,6 @@ describe('All about Admin as the librarian', function() {
       });
     });
 
-    //TODO NEXT
     describe('Between Admin and three or more users', function() {
       var secondTeacher = new Teacher(
         'Ayo',

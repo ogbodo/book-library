@@ -215,7 +215,6 @@ function getUserSets(userType) {
 function deleteUsers(userType) {
   var users = Admin.prototype.getUsers(),
     madeDeletion = false;
-  console.log('ttttt', users);
 
   for (var index = 0; index < users.length; index++) {
     if (users[index].userType === userType) {
@@ -223,7 +222,6 @@ function deleteUsers(userType) {
       madeDeletion = true;
     }
   }
-  console.log('users', users);
 
   return madeDeletion;
 }

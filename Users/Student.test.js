@@ -1,4 +1,5 @@
 var Student = require('./Student');
+var Admin = require('./Admin');
 
 //Functionalities of Student with respect to own account
 describe('All about Student own account functionalities', function() {
@@ -74,17 +75,46 @@ describe('All about Student own account functionalities', function() {
     );
     expect(student.retrieveDetails()).toEqual(student);
   });
+});
 
-  test('Student account can be deleted', function() {
-    var student = new Student(
-      'Samuel',
-      'Micheal',
-      '7782310091',
-      'Male',
-      'Science',
-      'Chemistry',
-      '300L'
+describe('Student borrowing book', function() {
+  var student = new Student(
+    'Samuel',
+    'Micheal',
+    '7782310091',
+    'Male',
+    'Science',
+    'Chemistry',
+    '300L'
+  );
+  var admin = new Admin('Izuking', 'Ogbodo', 'Male');
+
+  admin.addBook('What Women Want', 'Magazine', 'Treasure Ogbonna');
+  admin.addBook('What Women Want', 'Magazine', 'Treasure Ogbonna');
+  admin.addBook('Chike the River', 'Literature', 'Chinuwa Achebe');
+  admin.addBook('What Men Want', 'Journal', 'Izuking Ogbodo');
+
+  test('For the case where a student demands for book and its available', function() {
+    expect(student.borrowBook('Chike the River', 'Chinuwa Achebe').userId).toBe(
+      student.id
     );
-    expect(student.deleteAccount()).toBeTruthy();
+  });
+
+  test('For the case where same student demands for another book and its available', function() {
+    expect(
+      student.borrowBook('What Women Want', 'Treasure Ogbonna').userId
+    ).toBe(student.id);
+  });
+
+  test('For the case where same user demands for another copy of same book but its unavailable', function() {
+    expect(student.borrowBook('Chike the River', 'Chinuwa Achebe')).toBe(
+      'Book Taken'
+    );
+  });
+
+  test('For the case where same user demands for a book that is not in the library', function() {
+    expect(
+      admin.lendBook(student, 'Software Mastering', 'Izuchukwu Ogbodo')
+    ).toBe('Not Found');
   });
 });
