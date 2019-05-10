@@ -115,13 +115,46 @@ Admin.prototype.deleteBooks = function() {
   return BookLibrary.prototype.deleteAll();
 };
 
-Admin.prototype.lendBookByTitle = function(user, title, author) {
+function getMaximumValue(firstPerson, secondPerson) {
+  if (firstPerson.level >= secondPerson.level) {
+    return firstPerson;
+  }
+
+  return secondPerson;
+}
+
+function getThePerson(firstPerson, secondPerson) {
+  if (firstPerson.userType === 'TEACHER') {
+    return firstPerson;
+  }
+  if (secondPerson.userType === 'TEACHER') {
+    return secondPerson;
+  }
+
+  return getMaximumValue(firstPerson, secondPerson);
+}
+
+Admin.prototype.prioritizeCollector = function(users) {
+  var rightPerson = users[0];
+
+  for (let index = 1; index < users.length; index++) {
+    rightPerson = getThePerson(rightPerson, users[index]);
+  }
+
+  return rightPerson;
+};
+
+Admin.prototype.lendBook = function(user, title, author) {
+  if (user.constructor === Array) {
+    user = this.prioritizeCollector(user);
+  }
   var isAvailable = this.recordLendActivity(title, author);
 
   if (!isAvailable) {
     return 'Book Taken';
   }
   var book = BookLibrary.prototype.get(title, author);
+
   if (book === 'Not Found') {
     return book;
   }
@@ -135,18 +168,30 @@ Admin.prototype.lendBookByTitle = function(user, title, author) {
   if (!currentUserCollections) {
     currentUserCollections = [];
 
-    currentUserCollections.push({ bookId: book.id, dateIssued: dateIssued });
+    var borrowedBook = {
+      bookId: book.id,
+      dateIssued: dateIssued,
+      userId: user.id
+    };
+
+    currentUserCollections.push(borrowedBook);
 
     collectors[user.id] = currentUserCollections;
 
-    return book;
+    return borrowedBook;
   }
 
-  currentUserCollections.push({ bookId: book.id, dateIssued: dateIssued });
+  var borrowedBook = {
+    bookId: book.id,
+    dateIssued: dateIssued,
+    userId: user.id
+  };
+
+  currentUserCollections.push(borrowedBook);
 
   collectors[user.id] = currentUserCollections;
 
-  return book;
+  return borrowedBook;
 };
 
 Admin.prototype.recordLendActivity = function(title, author) {

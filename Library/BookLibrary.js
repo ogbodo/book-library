@@ -106,7 +106,7 @@ BookLibrary.prototype.addBookToCatalog = function(
       copies: copies
     };
 
-    return;
+    return databaseHandler['catalog'][title + ' by ' + author];
   }
   bookCatalog.copies += 1;
 };

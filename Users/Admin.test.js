@@ -68,7 +68,7 @@ describe('All about Admin and other users', function() {
       'Male',
       'Science',
       'Mathematics',
-      '200L'
+      '200'
     );
 
     var teacher = new Teacher(
@@ -126,7 +126,7 @@ describe('All about Admin and other users', function() {
         'Femal',
         'Science',
         'Physics',
-        '400L'
+        '400'
       );
 
       var teacher = new Teacher(
@@ -164,7 +164,7 @@ describe('All about Admin and other users', function() {
         'Femal',
         'Social Science',
         'Political Science',
-        '100L'
+        '100'
       );
 
       var teacher = new Teacher(
@@ -272,7 +272,7 @@ describe('All about Admin as the librarian', function() {
       'Femal',
       'Social Science',
       'Political Science',
-      '100L'
+      '100'
     );
 
     var teacher = new Teacher(
@@ -284,58 +284,120 @@ describe('All about Admin as the librarian', function() {
       'Mathematics'
     );
 
-    describe('Between Admin and a single user', function() {
-      test('For the case where a user demands for book and its available', function() {
+    describe('Between Admin and a single user at a time', function() {
+      test('For the case where a student demands for book and its available', function() {
         expect(
-          admin.lendBookByTitle(student, 'Chike the River', 'Chinuwa Achebe')
-            .title
-        ).toBe('Chike the River');
+          admin.lendBook(student, 'Chike the River', 'Chinuwa Achebe').userId
+        ).toBe(student.id);
       });
 
-      test('For the case where same user demands for another book and its available', function() {
+      test('For the case where same student demands for another book and its available', function() {
         expect(
-          admin.lendBookByTitle(student, 'What Women Want', 'Izuking Ogbodo')
-            .title
-        ).toBe('What Women Want');
+          admin.lendBook(student, 'What Women Want', 'Izuking Ogbodo').userId
+        ).toBe(student.id);
       });
 
-      test('For the case where same user demands for another copy of same book and its available', function() {
+      test('For the case where teacher demands for a copy of book and its available', function() {
         expect(
-          admin.lendBookByTitle(student, 'Chike the River', 'Chinuwa Achebe')
-            .title
-        ).toBe('Chike the River');
+          admin.lendBook(teacher, 'Chike the River', 'Chinuwa Achebe').userId
+        ).toBe(teacher.id);
       });
 
       test('For the case where same user demands for another copy of same book but its unavailable', function() {
         expect(
-          admin.lendBookByTitle(student, 'Chike the River', 'Chinuwa Achebe')
+          admin.lendBook(student, 'Chike the River', 'Chinuwa Achebe')
         ).toBe('Book Taken');
       });
 
       test('For the case where same user demands for a book that is not in the library', function() {
         expect(
-          admin.lendBookByTitle(
-            student,
-            'Software Mastering',
-            'Izuchukwu Ogbodo'
-          )
+          admin.lendBook(student, 'Software Mastering', 'Izuchukwu Ogbodo')
         ).toBe('Not Found');
       });
     });
 
-    describe('Admin can perform deletion of books', function() {
-      test('Admin can delete a book', function() {
-        var newBook = admin.addBook(
-          'Chike the River',
-          'Literature',
-          'Chinuwa Achebe'
-        );
-        expect(admin.deleteBook(newBook)).toBeTruthy();
+    //TODO NEXT
+    describe('Between Admin and two user', function() {
+      describe('Priority between teacher and student users', function() {
+        admin.addBook('Security Tips', 'Article', 'Ben Mark');
+
+        test('For the case where a student and teacher demands for a book and its available', function() {
+          expect(
+            admin.lendBook([student, teacher], 'Security Tips', 'Ben Mark')
+              .userId
+          ).toEqual(teacher.id);
+        });
+
+        describe('Priority between teachers', function() {
+          test('For the case where two teachers demands for a book and its available', function() {
+            admin.addBook('Security Tips Part 2', 'Article', 'Ben Mark');
+
+            var secondTeacher = new Teacher(
+              'Ayo',
+              'James',
+              'Dev/61/223',
+              'Male',
+              'Science',
+              'Agric'
+            );
+
+            expect(
+              admin.lendBook(
+                [teacher, secondTeacher],
+                'Security Tips Part 2',
+                'Ben Mark'
+              ).userId
+            ).toEqual(teacher.id);
+          });
+        });
       });
 
-      test('Admin can delete all book', function() {
-        expect(admin.deleteBooks()).toBe(0);
+      describe('Priority between Senior and Junior students', function() {
+        var juniorStudent = new Student(
+          'Lydia',
+          'Habbiba',
+          '90128780',
+          'Femal',
+          'Social Science',
+          'Political Science',
+          '100'
+        );
+        var seniorStudent = new Student(
+          'James',
+          'John',
+          '4522091',
+          'Male',
+          'Science',
+          'Chemistry',
+          '200'
+        );
+        admin.addBook('Computer Basics', 'Textbook', 'King Solomon');
+
+        test('For the case where two students demands for a book and its available', function() {
+          expect(
+            admin.lendBook(
+              [juniorStudent, seniorStudent],
+              'Computer Basics',
+              'King Solomon'
+            ).userId
+          ).toEqual(seniorStudent.id);
+        });
       });
+    });
+  });
+
+  describe('Admin can perform deletion of books', function() {
+    test('Admin can delete a book', function() {
+      var newBook = admin.addBook(
+        'Chike the River',
+        'Literature',
+        'Chinuwa Achebe'
+      );
+      expect(admin.deleteBook(newBook)).toBeTruthy();
+    });
+
+    test('Admin can delete all book', function() {
+      expect(admin.deleteBooks()).toBe(0);
     });
   });
 });
