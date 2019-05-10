@@ -350,6 +350,38 @@ describe('All about Admin as the librarian', function() {
             ).toEqual(teacher.id);
           });
         });
+
+        describe('Priority between students', function() {
+          test('For the case where two students of same levels demands for a book and its available', function() {
+            admin.addBook('Security Tips Part 3', 'Article', 'Ben Mark');
+            var firstStudent = new Student(
+              'James',
+              'John',
+              '76600001',
+              'Male',
+              'Science',
+              'Chemistry',
+              '100'
+            );
+            var secondStudent = new Student(
+              'Lydia',
+              'Habbiba',
+              '2211123',
+              'Femal',
+              'Social Science',
+              'Political Science',
+              '100'
+            );
+
+            expect(
+              admin.lendBook(
+                [firstStudent, secondStudent],
+                'Security Tips Part 3',
+                'Ben Mark'
+              ).userId
+            ).toEqual(firstStudent.id);
+          });
+        });
       });
 
       describe('Priority between Senior and Junior students', function() {
