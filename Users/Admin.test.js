@@ -437,6 +437,27 @@ describe('All about Admin as the librarian', function() {
           ).userId
         ).toEqual(teacher.id);
       });
+
+      test('For the case where two student and a teacher demands for a book and its available', function() {
+        admin.addBook('Security Tips Part 5', 'Article', 'Ben Mark');
+        var seniorStudent = new Student(
+          'James',
+          'John',
+          '4522091',
+          'Male',
+          'Science',
+          'Chemistry',
+          '200'
+        );
+
+        expect(
+          admin.lendBook(
+            [student, seniorStudent, secondTeacher],
+            'Security Tips Part 5',
+            'Ben Mark'
+          ).userId
+        ).toEqual(secondTeacher.id);
+      });
     });
   });
 
