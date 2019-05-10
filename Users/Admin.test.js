@@ -316,8 +316,7 @@ describe('All about Admin as the librarian', function() {
       });
     });
 
-    //TODO NEXT
-    describe('Between Admin and two user', function() {
+    describe('Between Admin and two users', function() {
       describe('Priority between teacher and student users', function() {
         admin.addBook('Security Tips', 'Article', 'Ben Mark');
 
@@ -414,6 +413,29 @@ describe('All about Admin as the librarian', function() {
             ).userId
           ).toEqual(seniorStudent.id);
         });
+      });
+    });
+
+    //TODO NEXT
+    describe('Between Admin and three or more users', function() {
+      var secondTeacher = new Teacher(
+        'Ayo',
+        'James',
+        'Dev/61/223',
+        'Male',
+        'Science',
+        'Agric'
+      );
+      test('For the case where two teachers and a student demands for a book and its available', function() {
+        admin.addBook('Security Tips Part 4', 'Article', 'Ben Mark');
+
+        expect(
+          admin.lendBook(
+            [student, teacher, secondTeacher],
+            'Security Tips Part 4',
+            'Ben Mark'
+          ).userId
+        ).toEqual(teacher.id);
       });
     });
   });
