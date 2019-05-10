@@ -194,7 +194,7 @@ describe('All about Admin and other users', function() {
 
       describe('For the case where admin wants to delete users when none exists', function() {
         test('For the case of deleting all student', function() {
-          expect(admin.deleteAllStudent()).toBeFalsy();
+          expect(admin.deleteAllStudent()).toBeTruthy();
         });
 
         test('For the case of deleting all teacher', function() {
@@ -240,7 +240,7 @@ describe('All about Admin as the librarian', function() {
       admin.addBook('What Women Want', 'Magazine', 'Treasure Ogbonna');
       admin.addBook('What Women Want', 'Magazine', 'Treasure Ogbonna');
       expect(admin.getBooksByDate(new Date().toLocaleDateString()).length).toBe(
-        8
+        9
       );
     });
 
@@ -249,7 +249,7 @@ describe('All about Admin as the librarian', function() {
     });
 
     test('Admin can get all books', function() {
-      expect(admin.getAllBooks().length).toBe(8);
+      expect(admin.getAllBooks().length).toBe(9);
     });
   });
 
@@ -265,6 +265,13 @@ describe('All about Admin as the librarian', function() {
   });
 
   describe('Admin can perform lending of books', function() {
+    admin.addBook('Become a Good Librarian', 'Journal', 'Mcan long');
+    test('For the case where admin demands for book and its available', function() {
+      expect(
+        admin.lendBook(admin, 'Become a Good Librarian', 'Mcan long').userId
+      ).toBe(admin.id);
+    });
+
     var student = new Student(
       'Lydia',
       'Habbiba',
