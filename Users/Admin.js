@@ -91,10 +91,6 @@ Admin.prototype.getBooksByTitle = function(title) {
   return BookLibrary.prototype.getByTitle(title);
 };
 
-// Admin.prototype.getBook = function(title, author) {
-//   return BookLibrary.prototype.get(title, author);
-// };
-
 Admin.prototype.getBooksByAuthor = function(author) {
   return BookLibrary.prototype.getByAuthor(author);
 };
@@ -119,10 +115,6 @@ Admin.prototype.deleteBooks = function() {
   return BookLibrary.prototype.deleteAll();
 };
 
-Admin.prototype.listOfCollectors = function() {
-  return databaseHandler['collectors'];
-};
-
 Admin.prototype.lendBookByTitle = function(user, title, author) {
   var isAvailable = this.recordLendActivity(title, author);
 
@@ -130,12 +122,10 @@ Admin.prototype.lendBookByTitle = function(user, title, author) {
     return 'Book Taken';
   }
   var book = BookLibrary.prototype.get(title, author);
-  //If the book returns false, means there is no longer such book for borrow
-  // if (book === 'Not Found') {
-  //   console.log('Not Found', book);
+  if (book === 'Not Found') {
+    return book;
+  }
 
-  //   return 'Not Found';
-  // }
   var collectors = databaseHandler['collectors'];
 
   var currentUserCollections = collectors[user.id];
@@ -148,7 +138,6 @@ Admin.prototype.lendBookByTitle = function(user, title, author) {
     currentUserCollections.push({ bookId: book.id, dateIssued: dateIssued });
 
     collectors[user.id] = currentUserCollections;
-    console.log('LENDEDDDD222', book);
 
     return book;
   }
@@ -156,8 +145,6 @@ Admin.prototype.lendBookByTitle = function(user, title, author) {
   currentUserCollections.push({ bookId: book.id, dateIssued: dateIssued });
 
   collectors[user.id] = currentUserCollections;
-  console.log('COLLECTORS', collectors);
-  console.log('LENDEDDDD', book);
 
   return book;
 };

@@ -105,22 +105,22 @@ BookLibrary.prototype.addBookToCatalog = function(
       dateAdded: dateAdded,
       copies: copies
     };
-    console.log('CATALOG INCREASED BY 1: ', databaseHandler['catalog']);
 
     return;
   }
   bookCatalog.copies += 1;
-  console.log('CATALOG INCREASED BY 1: ', databaseHandler['catalog']);
 };
 
 BookLibrary.prototype.recordBookRelease = function(title, author) {
   var bookCatalog = this.getCatalog(title, author);
+  if (!bookCatalog) {
+    return 'Book Not Found';
+  }
   var isAvailable = bookCatalog.copies > 0 ? true : false;
   if (isAvailable) {
     bookCatalog.copies -= 1;
   }
 
-  console.log('CATALOG DECREASED BY 1: ', databaseHandler['catalog']);
   return isAvailable;
 };
 

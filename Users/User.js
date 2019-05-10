@@ -74,10 +74,10 @@ User.prototype.save = function() {
   databaseHandler['users'].push(this);
 };
 
-User.prototype.borrowBook = function(book) {
-  this.borrowedBooks.push(book);
-  return this.borrowedBooks;
-};
+// User.prototype.borrowBook = function(book) {
+//   this.borrowedBooks.push(book);
+//   return this.borrowedBooks;
+// };
 
 function getUsers() {
   return databaseHandler['users'];

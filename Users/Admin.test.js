@@ -284,52 +284,58 @@ describe('All about Admin as the librarian', function() {
       'Mathematics'
     );
 
-    test('Admin can lend book by book title', function() {
-      expect(
-        admin.lendBookByTitle(student, 'Chike the River', 'Chinuwa Achebe')
-          .title
-      ).toBe('Chike the River');
+    describe('Between Admin and a single user', function() {
+      test('For the case where a user demands for book and its available', function() {
+        expect(
+          admin.lendBookByTitle(student, 'Chike the River', 'Chinuwa Achebe')
+            .title
+        ).toBe('Chike the River');
+      });
+
+      test('For the case where same user demands for another book and its available', function() {
+        expect(
+          admin.lendBookByTitle(student, 'What Women Want', 'Izuking Ogbodo')
+            .title
+        ).toBe('What Women Want');
+      });
+
+      test('For the case where same user demands for another copy of same book and its available', function() {
+        expect(
+          admin.lendBookByTitle(student, 'Chike the River', 'Chinuwa Achebe')
+            .title
+        ).toBe('Chike the River');
+      });
+
+      test('For the case where same user demands for another copy of same book but its unavailable', function() {
+        expect(
+          admin.lendBookByTitle(student, 'Chike the River', 'Chinuwa Achebe')
+        ).toBe('Book Taken');
+      });
+
+      test('For the case where same user demands for a book that is not in the library', function() {
+        expect(
+          admin.lendBookByTitle(
+            student,
+            'Software Mastering',
+            'Izuchukwu Ogbodo'
+          )
+        ).toBe('Not Found');
+      });
     });
 
-    test('Admin can lend book by book title', function() {
-      expect(
-        admin.lendBookByTitle(student, 'What Women Want', 'Izuking Ogbodo')
-          .title
-      ).toBe('What Women Want');
-    });
+    describe('Admin can perform deletion of books', function() {
+      test('Admin can delete a book', function() {
+        var newBook = admin.addBook(
+          'Chike the River',
+          'Literature',
+          'Chinuwa Achebe'
+        );
+        expect(admin.deleteBook(newBook)).toBeTruthy();
+      });
 
-    test('Admin can lend book by book title', function() {
-      expect(
-        admin.lendBookByTitle(student, 'Chike the River', 'Chinuwa Achebe')
-          .title
-      ).toBe('Chike the River');
-    });
-
-    test('Admin can lend book by book title', function() {
-      expect(
-        admin.lendBookByTitle(student, 'Chike the River', 'Chinuwa Achebe')
-      ).toBe('Book Taken');
-    });
-
-    test('Admin can lend book by book title', function() {
-      expect(
-        admin.lendBookByTitle(student, 'Chike the River', 'Chinuwa Achebe')
-      ).toBe('Book Taken');
-    });
-  });
-
-  describe('Admin can perform deletion of books', function() {
-    test('Admin can delete a book', function() {
-      var newBook = admin.addBook(
-        'Chike the River',
-        'Literature',
-        'Chinuwa Achebe'
-      );
-      expect(admin.deleteBook(newBook)).toBeTruthy();
-    });
-
-    test('Admin can delete all book', function() {
-      expect(admin.deleteBooks()).toBe(0);
+      test('Admin can delete all book', function() {
+        expect(admin.deleteBooks()).toBe(0);
+      });
     });
   });
 });
