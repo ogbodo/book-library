@@ -5,7 +5,7 @@ function User(firstName, lastName, gender, userType) {
   this.lastName = lastName;
   this.gender = gender;
   this.userType = userType;
-  this.borrowedBooks = [];
+  this.borrowedBooks = 0;
   this.id = generateUserId();
   this.save();
 }

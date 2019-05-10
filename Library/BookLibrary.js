@@ -3,10 +3,26 @@ var Book = require('./Book');
 
 function BookLibrary() {}
 BookLibrary.prototype.create = function(title, category, author) {
-  var book = new Book(title, category, author, getTodayDate(), generateId());
+  var book = new Book(
+    title,
+    category,
+    author,
+    new Date().toLocaleDateString(),
+    generateId()
+  );
   save(book);
-  console.log(book);
+  this.addBookToCatalog(book.id, book.date, book.title, book.author);
   return book;
+};
+
+BookLibrary.prototype.get = function(title, author) {
+  var books = this.getBooks();
+  for (var index = 0; index < books.length; index++) {
+    if (books[index].title === title && books[index].author === author) {
+      return books[index];
+    }
+  }
+  return 'Not Found';
 };
 
 BookLibrary.prototype.getByTitle = function(title) {
@@ -72,6 +88,46 @@ BookLibrary.prototype.deleteAll = function(book) {
   return books.length;
 };
 
+BookLibrary.prototype.addBookToCatalog = function(
+  bookId,
+  dateAdded,
+  title,
+  author
+) {
+  var bookCatalog = this.getCatalog(title, author);
+  var copies = 0;
+
+  if (!bookCatalog) {
+    copies++;
+    databaseHandler['catalog'][title + ' by ' + author] = {
+      bookTitle: title,
+      bookId: bookId,
+      dateAdded: dateAdded,
+      copies: copies
+    };
+    console.log('CATALOG INCREASED BY 1: ', databaseHandler['catalog']);
+
+    return;
+  }
+  bookCatalog.copies += 1;
+  console.log('CATALOG INCREASED BY 1: ', databaseHandler['catalog']);
+};
+
+BookLibrary.prototype.recordBookRelease = function(title, author) {
+  var bookCatalog = this.getCatalog(title, author);
+  var isAvailable = bookCatalog.copies > 0 ? true : false;
+  if (isAvailable) {
+    bookCatalog.copies -= 1;
+  }
+
+  console.log('CATALOG DECREASED BY 1: ', databaseHandler['catalog']);
+  return isAvailable;
+};
+
+BookLibrary.prototype.getCatalog = function(title, author) {
+  return databaseHandler['catalog'][title + ' by ' + author];
+};
+
 function save(book) {
   databaseHandler['books'].push(book);
 }
@@ -81,7 +137,4 @@ function generateId() {
   return books.length > 0 ? books[books.length - 1].id + 1 : 1;
 }
 
-function getTodayDate() {
-  return new Date().toLocaleDateString();
-}
 module.exports = BookLibrary;

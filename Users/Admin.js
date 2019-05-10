@@ -91,6 +91,10 @@ Admin.prototype.getBooksByTitle = function(title) {
   return BookLibrary.prototype.getByTitle(title);
 };
 
+// Admin.prototype.getBook = function(title, author) {
+//   return BookLibrary.prototype.get(title, author);
+// };
+
 Admin.prototype.getBooksByAuthor = function(author) {
   return BookLibrary.prototype.getByAuthor(author);
 };
@@ -115,9 +119,53 @@ Admin.prototype.deleteBooks = function() {
   return BookLibrary.prototype.deleteAll();
 };
 
-Admin.prototype.lendBookByTitle = function(user, title) {
-  var book = this.getBooksByTitle(title);
-  return user.borrowBook(book);
+Admin.prototype.listOfCollectors = function() {
+  return databaseHandler['collectors'];
+};
+
+Admin.prototype.lendBookByTitle = function(user, title, author) {
+  var isAvailable = this.recordLendActivity(title, author);
+
+  if (!isAvailable) {
+    return 'Book Taken';
+  }
+  var book = BookLibrary.prototype.get(title, author);
+  //If the book returns false, means there is no longer such book for borrow
+  // if (book === 'Not Found') {
+  //   console.log('Not Found', book);
+
+  //   return 'Not Found';
+  // }
+  var collectors = databaseHandler['collectors'];
+
+  var currentUserCollections = collectors[user.id];
+
+  var dateIssued = new Date().toLocaleDateString();
+
+  if (!currentUserCollections) {
+    currentUserCollections = [];
+
+    currentUserCollections.push({ bookId: book.id, dateIssued: dateIssued });
+
+    collectors[user.id] = currentUserCollections;
+    console.log('LENDEDDDD222', book);
+
+    return book;
+  }
+
+  currentUserCollections.push({ bookId: book.id, dateIssued: dateIssued });
+
+  collectors[user.id] = currentUserCollections;
+  console.log('COLLECTORS', collectors);
+  console.log('LENDEDDDD', book);
+
+  return book;
+};
+
+Admin.prototype.recordLendActivity = function(title, author) {
+  var catalog = BookLibrary.prototype.recordBookRelease(title, author);
+
+  return catalog;
 };
 
 function getUserSets(userType) {

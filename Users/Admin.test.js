@@ -228,6 +228,7 @@ describe('All about Admin as the librarian', function() {
 
     test('Admin can get books by author', function() {
       admin.addBook('What Women Want', 'Magazine', 'Izuking Ogbodo');
+      admin.addBook('What Women Want', 'Magazine', 'Izuking Ogbodo');
       expect(admin.getBooksByAuthor('Izuking Ogbodo')).toBeTruthy();
     });
 
@@ -236,7 +237,8 @@ describe('All about Admin as the librarian', function() {
     });
 
     test('Admin can get books by date added', function() {
-      admin.addBook('What Women Want', 'Magazine', 'Izuking Ogbodo');
+      admin.addBook('What Women Want', 'Magazine', 'Treasure Ogbonna');
+      admin.addBook('What Women Want', 'Magazine', 'Treasure Ogbonna');
       expect(
         admin.getBooksByDate(new Date().toLocaleDateString())
       ).toBeTruthy();
@@ -283,24 +285,53 @@ describe('All about Admin as the librarian', function() {
     );
 
     test('Admin can lend book by book title', function() {
-      expect(admin.lendBookByTitle(student, 'Chike the River')).toBeTruthy();
+      expect(
+        admin.lendBookByTitle(student, 'Chike the River', 'Chinuwa Achebe')
+          .title
+      ).toBe('Chike the River');
+    });
+
+    test('Admin can lend book by book title', function() {
+      expect(
+        admin.lendBookByTitle(student, 'What Women Want', 'Izuking Ogbodo')
+          .title
+      ).toBe('What Women Want');
+    });
+
+    test('Admin can lend book by book title', function() {
+      expect(
+        admin.lendBookByTitle(student, 'Chike the River', 'Chinuwa Achebe')
+          .title
+      ).toBe('Chike the River');
+    });
+
+    test('Admin can lend book by book title', function() {
+      expect(
+        admin.lendBookByTitle(student, 'Chike the River', 'Chinuwa Achebe')
+      ).toBe('Book Taken');
+    });
+
+    test('Admin can lend book by book title', function() {
+      expect(
+        admin.lendBookByTitle(student, 'Chike the River', 'Chinuwa Achebe')
+      ).toBe('Book Taken');
     });
   });
 
-  describe('Admin can perform deletion of books', function() {
-    test('Admin can delete a book', function() {
-      var newBook = admin.addBook(
-        'Chike the River',
-        'Literature',
-        'Chinuwa Achebe'
-      );
-      expect(admin.deleteBook(newBook)).toBeTruthy();
-    });
+  // describe('Admin can perform deletion of books', function() {
+  //   test('Admin can delete a book', function() {
+  //     var newBook = admin.addBook(
+  //       'Chike the River',
+  //       'Literature',
+  //       'Chinuwa Achebe'
+  //     );
+  //     expect(admin.deleteBook(newBook)).toBeTruthy();
+  //   });
 
-    test('Admin can delete all book', function() {
-      expect(admin.deleteBooks()).toBe(0);
-    });
-  });
+  //   test('Admin can delete all book', function() {
+  //     expect(admin.deleteBooks()).toBe(0);
+  //   });
+  // });
 });
 
 /**

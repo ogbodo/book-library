@@ -1,1 +1,1 @@
-module.exports = { users: [], books: [] };
+module.exports = { users: [], books: [], catalog: {}, collectors: {} };
