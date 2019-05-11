@@ -31,4 +31,8 @@ Student.prototype.borrowBook = function(title, author) {
   return Admin.prototype.lendBook(this, title, author);
 };
 
+Student.prototype.returnBorrowedbook = function(title, author) {
+  return Admin.prototype.returnBook(this, title, author);
+};
+
 module.exports = Student;

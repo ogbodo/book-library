@@ -124,6 +124,12 @@ BookLibrary.prototype.recordBookRelease = function(title, author) {
   return isAvailable;
 };
 
+BookLibrary.prototype.recordBookReturned = function(title, author) {
+  var bookCatalog = this.getCatalog(title, author);
+
+  return (bookCatalog.copies += 1);
+};
+
 BookLibrary.prototype.getCatalog = function(title, author) {
   return databaseHandler['catalog'][title + ' by ' + author];
 };

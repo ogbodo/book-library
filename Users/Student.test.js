@@ -117,4 +117,10 @@ describe('Student borrowing book', function() {
       'Not Found'
     );
   });
+
+  test('For the case where student wants to return a book', function() {
+    expect(
+      student.returnBorrowedbook('Chike the River', 'Chinuwa Achebe')
+    ).toBeTruthy();
+  });
 });

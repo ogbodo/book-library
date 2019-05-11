@@ -169,6 +169,8 @@ Admin.prototype.lendBook = function(user, title, author) {
     currentUserCollections = [];
 
     var borrowedBook = {
+      bookTitle: book.title,
+      author: book.author,
       bookId: book.id,
       dateIssued: dateIssued,
       userId: user.id
@@ -182,6 +184,8 @@ Admin.prototype.lendBook = function(user, title, author) {
   }
 
   var borrowedBook = {
+    bookTitle: book.title,
+    author: book.author,
     bookId: book.id,
     dateIssued: dateIssued,
     userId: user.id
@@ -195,9 +199,31 @@ Admin.prototype.lendBook = function(user, title, author) {
 };
 
 Admin.prototype.recordLendActivity = function(title, author) {
-  var catalog = BookLibrary.prototype.recordBookRelease(title, author);
+  return BookLibrary.prototype.recordBookRelease(title, author);
+};
 
-  return catalog;
+Admin.prototype.recordReturnActivity = function(title, author) {
+  return BookLibrary.prototype.recordBookReturned(title, author);
+};
+
+Admin.prototype.returnBook = function(user, title, author) {
+  var currentUserCollections = databaseHandler['collectors'][user.id];
+
+  var itsRemoved = false;
+
+  for (let index = 0; index < currentUserCollections.length; index++) {
+    if (
+      currentUserCollections[index].bookTitle === title &&
+      currentUserCollections[index].author === author
+    ) {
+      this.recordReturnActivity(title, author);
+      currentUserCollections.splice(index, 1);
+      itsRemoved = true;
+      break;
+    }
+  }
+
+  return itsRemoved;
 };
 
 function getUserSets(userType) {
