@@ -17,4 +17,8 @@ Teacher.prototype.updateStaffId = function(newStaffId) {
 Teacher.prototype.borrowBook = function(title, author) {
   return Admin.prototype.lendBook(this, title, author);
 };
+Teacher.prototype.returnBorrowedbook = function(title, author) {
+  return Admin.prototype.returnBook(this, title, author);
+};
+
 module.exports = Teacher;
