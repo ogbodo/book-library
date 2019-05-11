@@ -127,7 +127,7 @@ describe('Teacher borrowing book', function() {
     );
   });
 
-  test('For the case where student wants to return a book', function() {
+  test('For the case where teacher wants to return a book', function() {
     expect(
       teacher.returnBorrowedbook('Chike the River', 'Chinuwa Achebe')
     ).toBeTruthy();
