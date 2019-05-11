@@ -1,8 +1,6 @@
-var Admin = require('./Admin');
-var Teacher = require('./Teacher');
-var Student = require('./Student');
-
-/**TODO RENAME ALL THE PROJECT FOLDERS TO START WITH LOWER CASES */
+var Admin = require('./Admin'); //Import the Admin class
+var Teacher = require('./Teacher'); //Import the Teacher class
+var Student = require('./Student'); //Import the Student class
 
 //Functionalities of Admin with respect to own account
 describe('All about Admin own account functionalities', function() {
@@ -53,9 +51,9 @@ describe('All about Admin and other users', function() {
       expect(admin.getAllAdmins()).toBeTruthy();
     });
 
-    // test('For the case where admin wants to get users when none exists', function() {
-    //   expect(admin.getAllAdmins()).toBeTruthy();
-    // });
+    test('For the case where admin wants to get users when none exists', function() {
+      expect(admin.getAllAdmins()).toBeTruthy();
+    });
   });
 
   describe('Admin can perform search on other users', function() {
@@ -451,9 +449,3 @@ describe('All about Admin as the librarian', function() {
     });
   });
 });
-
-/**
- * ALSO, LATER SEE IF ALL THE IF...ELSE PARTS CAN BE REPLACED WITH REGEX
- * RENAME ALL THE FILES NAME AND FOLDERS AT LAST TO START WITH LOWER CASE LETTER
- * Dont add users with same matric number or staff number
- */

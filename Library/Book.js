@@ -1,3 +1,4 @@
+//The Book object class definition
 function Book(title, category, author, date, id) {
   this.id = id;
   this.title = title;
@@ -5,4 +6,4 @@ function Book(title, category, author, date, id) {
   this.author = author;
   this.date = date;
 }
-module.exports = Book;
+module.exports = Book; //Make this class available for external use by importation
