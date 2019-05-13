@@ -1,4 +1,5 @@
 var databaseHandler = require('../Library/database/Database'); //Import the database
+var generateId = require('../users/interface/helpers'); //Import the database
 
 //User constructor definition
 function User(firstName, lastName, gender, userType) {
@@ -6,33 +7,29 @@ function User(firstName, lastName, gender, userType) {
   this.lastName = lastName;
   this.gender = gender;
   this.userType = userType;
-  this.id = generateUserId();
+  this.id = generateId(this.getUsers());
   this.save();
 }
 
-//Gets user's firstname
+//Gets user's first-name
 User.prototype.getFirstName = function() {
   return this.firstName;
 };
 
-//Gets user's lastname
+//Gets user's last-name
 User.prototype.getLastName = function() {
   return this.lastName;
 };
 
-//Upates user's firstname
-User.prototype.updateFirstName = function(name) {
-  this.firstName = name;
-};
-
-//Upates user's lastname
-User.prototype.updateLastName = function(name) {
-  this.lastName = name;
+//Updates user's first-name
+User.prototype.updatePersonalDetails = function(firsName, lastName) {
+  this.firstName = firsName;
+  this.lastName = lastName;
 };
 
 //Enables user to delete own account
 User.prototype.deleteAccount = function() {
-  var users = getUsers();
+  var users = this.getUsers();
   for (var index = 0; index < users.length; index++) {
     if (users[index].id === this.id) {
       users.splice(index, 1);
@@ -43,7 +40,7 @@ User.prototype.deleteAccount = function() {
 
 //Gets user's information as an object
 User.prototype.retrieveDetails = function() {
-  var users = getUsers();
+  var users = this.getUsers();
   for (var index = 0; index < users.length; index++) {
     if (users[index].id === this.id) {
       return users[index];
@@ -76,19 +73,13 @@ User.prototype.updateDepartment = function(department) {
   this.department = department;
 };
 
-//Generates a unique id for users
-function generateUserId() {
-  var users = getUsers();
-  return users.length > 0 ? users[users.length - 1].id + 1 : 1;
-}
-
 //This method saves user to the database
 User.prototype.save = function() {
   databaseHandler['users'].push(this);
 };
 
-//this function gets all users
-function getUsers() {
+//this method gets all users
+User.prototype.getUsers = function() {
   return databaseHandler['users'];
-}
-module.exports = User; //Make this class available for external use by importation
+};
+module.exports = User; //Make this constructor available for external use by importation

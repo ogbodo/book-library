@@ -1,5 +1,5 @@
 var User = require('./User'); //Import the User class
-var InheritProperty = require('./Interface/InheritProperty'); //Import for inhritance
+var InheritProperty = require('./interface/inheritProperty'); //Import for inhritance
 var Admin = require('./Admin'); //Import the Admin class
 
 //Student constructor definition
@@ -33,8 +33,8 @@ Student.prototype.updateLevel = function(level) {
 };
 
 //This method enables student to borrow book
-Student.prototype.borrowBook = function(title, author) {
-  return Admin.prototype.lendBook(this, title, author);
+Student.prototype.borrowBook = function(bookId) {
+  return Admin.prototype.lendBook(this, bookId);
 };
 
 //This method enables student to return borrowed book

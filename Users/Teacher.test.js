@@ -24,18 +24,9 @@ describe('All about Admin own account functionalities', function() {
       'Political Science'
     );
 
-    test('For the case of first name', function() {
-      teacher.updateFirstName('Fola');
+    test('For the case of personal details', function() {
+      teacher.updatePersonalDetails('Fola', 'Tolu');
       expect(teacher.getFirstName()).toBe('Fola');
-    });
-
-    test('For the case of first name', function() {
-      teacher.updateFirstName('Fola');
-      expect(teacher.getFirstName()).toBe('Fola');
-    });
-
-    test('For the case of last name', function() {
-      teacher.updateLastName('Tolu');
       expect(teacher.getLastName()).toBe('Tolu');
     });
 
@@ -98,38 +89,28 @@ describe('Teacher borrowing book', function() {
 
   var admin = new Admin('Izuking', 'Ogbodo', 'Male');
 
-  admin.addBook('What Women Want', 'Magazine', 'Treasure Ogbonna');
-  admin.addBook('What Women Want', 'Magazine', 'Treasure Ogbonna');
-  admin.addBook('Chike the River', 'Literature', 'Chinuwa Achebe');
-  admin.addBook('What Men Want', 'Journal', 'Izuking Ogbodo');
+  var book1 = admin.addBook('What Women Want', 'Magazine', 'Treasure Ogbonna');
+  var book2 = admin.addBook('Chike the River', 'Literature', 'Chinuwa Achebe');
 
-  test('For the case where a student demands for book and its available', function() {
-    expect(teacher.borrowBook('Chike the River', 'Chinuwa Achebe').userId).toBe(
-      teacher.id
-    );
+  test('For the case where a teacher demands for book and its available', function() {
+    expect(teacher.borrowBook(book1.id).userId).toBe(teacher.id);
   });
 
-  test('For the case where same student demands for another book and its available', function() {
-    expect(
-      teacher.borrowBook('What Women Want', 'Treasure Ogbonna').userId
-    ).toBe(teacher.id);
+  test('For the case where same teacher demands for another book and its available', function() {
+    expect(teacher.borrowBook(book2.id).userId).toBe(teacher.id);
   });
 
-  test('For the case where same user demands for another copy of same book but its unavailable', function() {
-    expect(teacher.borrowBook('Chike the River', 'Chinuwa Achebe')).toBe(
-      'Book Taken'
-    );
+  test('For the case where same teacher demands for another copy of same book but its unavailable', function() {
+    expect(teacher.borrowBook(book1.id)).toBe('Book Taken');
   });
 
-  test('For the case where same user demands for a book that is not in the library', function() {
+  test('For the case where same teacher demands for a book that is not in the library', function() {
     expect(teacher.borrowBook('Software Mastering', 'Izuchukwu Ogbodo')).toBe(
       'Not Found'
     );
   });
 
   test('For the case where teacher wants to return a book', function() {
-    expect(
-      teacher.returnBorrowedbook('Chike the River', 'Chinuwa Achebe')
-    ).toBeTruthy();
+    expect(teacher.returnBorrowedbook(book2.id)).toBeTruthy();
   });
 });

@@ -1,5 +1,5 @@
 var User = require('./User'); //Import the User class
-var InheritProperty = require('./Interface/InheritProperty'); //Import for inhritance
+var InheritProperty = require('./interface/inheritProperty'); //Import for inhritance
 var Admin = require('./Admin'); //Import the Admin class
 
 //Teacher constructor definition
@@ -19,13 +19,13 @@ Teacher.prototype.updateStaffId = function(newStaffId) {
 };
 
 //This method enables teacher to borrow book
-Teacher.prototype.borrowBook = function(title, author) {
-  return Admin.prototype.lendBook(this, title, author);
+Teacher.prototype.borrowBook = function(bookId) {
+  return Admin.prototype.lendBook(this, bookId);
 };
 
 //This method enables teacher to return borrowed book
-Teacher.prototype.returnBorrowedbook = function(title, author) {
-  return Admin.prototype.returnBook(this, title, author);
+Teacher.prototype.returnBorrowedbook = function(bookId) {
+  return Admin.prototype.returnBook(this, bookId);
 };
 
 module.exports = Teacher; //Make this class available for external use by importation

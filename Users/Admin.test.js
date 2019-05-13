@@ -12,13 +12,9 @@ describe('All about Admin own account functionalities', function() {
   describe('Admin details can be updated', function() {
     var admin = new Admin('Treasure', ' Ogbonna', 'Female');
 
-    test('For the case of first name', function() {
-      admin.updateFirstName('Natasha');
+    test('For the case of personal details', function() {
+      admin.updatePersonalDetails('Natasha', 'Ade');
       expect(admin.getFirstName()).toBe('Natasha');
-    });
-
-    test('For the case of last name', function() {
-      admin.updateLastName('Ade');
       expect(admin.getLastName()).toBe('Ade');
     });
   });
@@ -175,11 +171,11 @@ describe('All about Admin and other users', function() {
       );
 
       test('For the case of deleting a student', function() {
-        expect(admin.deleteUser(student)).toBeTruthy();
+        expect(admin.deleteUser(student.id)).toBeTruthy();
       });
 
       test('For the case of deleting a teacher', function() {
-        expect(admin.deleteUser(teacher)).toBeTruthy();
+        expect(admin.deleteUser(teacher.id)).toBeTruthy();
       });
 
       test('For the case of deleting all teacher', function() {
@@ -214,40 +210,10 @@ describe('All about Admin as the librarian', function() {
   });
 
   describe('Admin can perform retrieval of books', function() {
-    admin.addBook('Chike the River', 'Literature', 'Chinuwa Achebe');
-
-    test('Admin can get books by title', function() {
-      expect(admin.getBooksByTitle('Chike the River').length).toBe(1);
-    });
-
-    test('Admin trying to get books by none existing title', function() {
-      expect(admin.getBooksByTitle('The angel and devil')).toBeFalsy();
-    });
-
-    test('Admin can get books by author', function() {
-      admin.addBook('What Women Want', 'Magazine', 'Izuking Ogbodo');
-      admin.addBook('What Women Want', 'Magazine', 'Izuking Ogbodo');
-      expect(admin.getBooksByAuthor('Izuking Ogbodo').length).toBe(3);
-    });
-
-    test('Admin trying to get books by none existing author', function() {
-      expect(admin.getBooksByAuthor('David Ayo')).toBeFalsy();
-    });
-
-    test('Admin can get books by date added', function() {
-      admin.addBook('What Women Want', 'Magazine', 'Treasure Ogbonna');
-      admin.addBook('What Women Want', 'Magazine', 'Treasure Ogbonna');
-      expect(admin.getBooksByDate(new Date().toLocaleDateString()).length).toBe(
-        9
-      );
-    });
-
-    test('Admin trying to get books by none existing date', function() {
-      expect(admin.getBooksByDate('5/9/2020')).toBeFalsy();
-    });
+    var book = admin.addBook('Chike the River', 'Literature', 'Chinuwa Achebe');
 
     test('Admin can get all books', function() {
-      expect(admin.getAllBooks().length).toBe(9);
+      expect(admin.getAllBooks().length).toBe(5);
     });
   });
 
@@ -263,12 +229,10 @@ describe('All about Admin as the librarian', function() {
   });
 
   describe('Admin can perform lending of books', function() {
-    admin.addBook('Become a Good Librarian', 'Journal', 'Mcan long');
+    var book = admin.addBook('Become a Good Librarian', 'Journal', 'Mcan long');
 
     test('For the case where admin demands for book and its available', function() {
-      expect(
-        admin.lendBook(admin, 'Become a Good Librarian', 'Mcan long').userId
-      ).toBe(admin.id);
+      expect(admin.lendBook(admin, book.id).userId).toBe(admin.id);
     });
 
     var student = new Student(
@@ -292,18 +256,21 @@ describe('All about Admin as the librarian', function() {
 
     describe('Between Admin and two users', function() {
       describe('Priority between teacher and student users', function() {
-        admin.addBook('Security Tips', 'Article', 'Ben Mark');
+        var book = admin.addBook('Security Tips', 'Article', 'Ben Mark');
 
         test('For the case where a student and teacher demands for a book and its available', function() {
-          expect(
-            admin.lendBook([student, teacher], 'Security Tips', 'Ben Mark')
-              .userId
-          ).toEqual(teacher.id);
+          expect(admin.lendBook([student, teacher], book.id).userId).toEqual(
+            teacher.id
+          );
         });
 
         describe('Priority between teachers', function() {
           test('For the case where two teachers demands for a book and its available', function() {
-            admin.addBook('Security Tips Part 2', 'Article', 'Ben Mark');
+            var book = admin.addBook(
+              'Security Tips Part 2',
+              'Article',
+              'Ben Mark'
+            );
 
             var secondTeacher = new Teacher(
               'Ayo',
@@ -315,18 +282,18 @@ describe('All about Admin as the librarian', function() {
             );
 
             expect(
-              admin.lendBook(
-                [teacher, secondTeacher],
-                'Security Tips Part 2',
-                'Ben Mark'
-              ).userId
+              admin.lendBook([teacher, secondTeacher], book.id).userId
             ).toEqual(teacher.id);
           });
         });
 
         describe('Priority between students', function() {
           test('For the case where two students of same levels demands for a book and its available', function() {
-            admin.addBook('Security Tips Part 3', 'Article', 'Ben Mark');
+            var book = admin.addBook(
+              'Security Tips Part 3',
+              'Article',
+              'Ben Mark'
+            );
             var firstStudent = new Student(
               'James',
               'John',
@@ -347,11 +314,7 @@ describe('All about Admin as the librarian', function() {
             );
 
             expect(
-              admin.lendBook(
-                [firstStudent, secondStudent],
-                'Security Tips Part 3',
-                'Ben Mark'
-              ).userId
+              admin.lendBook([firstStudent, secondStudent], book.id).userId
             ).toEqual(firstStudent.id);
           });
         });
@@ -376,15 +339,11 @@ describe('All about Admin as the librarian', function() {
           'Chemistry',
           '200'
         );
-        admin.addBook('Computer Basics', 'Textbook', 'King Solomon');
+        var book = admin.addBook('Computer Basics', 'Textbook', 'King Solomon');
 
-        test('For the case where two students demands for a book and its available', function() {
+        test('For the case where two students of different levels demands for a book and its available', function() {
           expect(
-            admin.lendBook(
-              [juniorStudent, seniorStudent],
-              'Computer Basics',
-              'King Solomon'
-            ).userId
+            admin.lendBook([juniorStudent, seniorStudent], book.id).userId
           ).toEqual(seniorStudent.id);
         });
       });
@@ -400,19 +359,15 @@ describe('All about Admin as the librarian', function() {
         'Agric'
       );
       test('For the case where two teachers and a student demands for a book and its available', function() {
-        admin.addBook('Security Tips Part 4', 'Article', 'Ben Mark');
+        var book = admin.addBook('Security Tips Part 4', 'Article', 'Ben Mark');
 
         expect(
-          admin.lendBook(
-            [student, teacher, secondTeacher],
-            'Security Tips Part 4',
-            'Ben Mark'
-          ).userId
+          admin.lendBook([student, teacher, secondTeacher], book.id).userId
         ).toEqual(teacher.id);
       });
 
       test('For the case where two student and a teacher demands for a book and its available', function() {
-        admin.addBook('Security Tips Part 5', 'Article', 'Ben Mark');
+        var book = admin.addBook('Security Tips Part 5', 'Article', 'Ben Mark');
         var seniorStudent = new Student(
           'James',
           'John',
@@ -424,11 +379,8 @@ describe('All about Admin as the librarian', function() {
         );
 
         expect(
-          admin.lendBook(
-            [student, seniorStudent, secondTeacher],
-            'Security Tips Part 5',
-            'Ben Mark'
-          ).userId
+          admin.lendBook([student, seniorStudent, secondTeacher], book.id)
+            .userId
         ).toEqual(secondTeacher.id);
       });
     });
@@ -441,7 +393,7 @@ describe('All about Admin as the librarian', function() {
         'Literature',
         'Chinuwa Achebe'
       );
-      expect(admin.deleteBook(newBook)).toBeTruthy();
+      expect(admin.deleteBook(newBook.id)).toBeTruthy();
     });
 
     test('Admin can delete all book', function() {
