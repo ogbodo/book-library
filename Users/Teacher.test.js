@@ -104,12 +104,6 @@ describe('Teacher borrowing book', function() {
     expect(teacher.borrowBook(book1.id)).toBe('Book Taken');
   });
 
-  test('For the case where same teacher demands for a book that is not in the library', function() {
-    expect(teacher.borrowBook('Software Mastering', 'Izuchukwu Ogbodo')).toBe(
-      'Not Found'
-    );
-  });
-
   test('For the case where teacher wants to return a book', function() {
     expect(teacher.returnBorrowedbook(book2.id)).toBeTruthy();
   });

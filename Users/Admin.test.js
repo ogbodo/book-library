@@ -170,6 +170,10 @@ describe('All about Admin and other users', function() {
         'Mathematics'
       );
 
+      test('Admin trying to delete a non existing user', function() {
+        expect(admin.deleteUser(20)).toBe('User Not Found');
+      });
+
       test('For the case of deleting a student', function() {
         expect(admin.deleteUser(student.id)).toBeTruthy();
       });
@@ -394,6 +398,9 @@ describe('All about Admin as the librarian', function() {
         'Chinuwa Achebe'
       );
       expect(admin.deleteBook(newBook.id)).toBeTruthy();
+    });
+    test('Admin trying to delete a non existing book', function() {
+      expect(admin.deleteBook(20)).toBe('Book Not Found');
     });
 
     test('Admin can delete all book', function() {

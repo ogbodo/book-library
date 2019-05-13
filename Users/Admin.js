@@ -45,7 +45,7 @@ Admin.prototype.deleteUser = function(userId) {
       return true; //returns true as a response
     }
   }
-  return false; //returns false as a response if user with such ID does not exist
+  return 'User Not Found'; //returns false as a response if user with such ID does not exist
 };
 
 //This method deletes all teachers
@@ -170,12 +170,8 @@ Admin.prototype.lendBook = function(user, bookId) {
   if (!isAvailable) {
     return 'Book Taken'; //At this point, the book is unavailable
   }
-  var book = BookLibrary.prototype.get(bookId); //Returns the particular book
 
-  //Checks if the book was found or not
-  if (book === 'Not Found') {
-    return book;
-  }
+  var book = BookLibrary.prototype.get(bookId); //At this stage, we are sure that the book is till available, so just go ahead and returns the particular book
 
   //At this point the book was actually found
   var collectors = databaseHandler['collectors']; //Gets all  users who had borrowed books before now

@@ -26,7 +26,6 @@ BookLibrary.prototype.get = function(bookId) {
       return books[index];
     }
   }
-  return 'Not Found';
 };
 
 //This method gets all books
@@ -54,7 +53,7 @@ BookLibrary.prototype.delete = function(bookId) {
       return true; //returns true as a response
     }
   }
-  return false; //returns false as a response if book with such ID does not exist
+  return 'Book Not Found'; //returns false as a response if book with such ID does not exist
 };
 
 //This method deletes all books
@@ -66,54 +65,37 @@ BookLibrary.prototype.deleteAll = function(book) {
 
 //This method add books to catalog
 BookLibrary.prototype.addBookToCatalog = function(bookId, dateAdded, title) {
-  var bookCatalog = this.getCatalog(bookId); //Retrieves the cataloged object of this book using its Id.
-  var copies = 0; //Initializes the current number of this book to zero
+  //build the catalog for the current object and save it in the catalog collection
+  var catalogRecord = {
+    id: generateId(databaseHandler['catalog']), //Generates a new Id for this book
+    bookTitle: title,
+    bookId: bookId,
+    dateAdded: dateAdded
+  };
 
-  //If this book is not yet cataloged
-  if (!bookCatalog) {
-    copies++; //Increment the current number of this book by one
-
-    //build the catalog for the current object and save it in the catalog collection
-    var catalogRecord = {
-      id: generateId(databaseHandler['catalog']), //Generates a new Id for this book
-      bookTitle: title,
-      bookId: bookId,
-      dateAdded: dateAdded,
-      copies: copies
-    };
-
-    databaseHandler['catalog'].push(catalogRecord);
-  }
-  bookCatalog.copies += 1; //Just increment number of copies of this book since its already in the catalog
+  databaseHandler['catalog'].push(catalogRecord);
 };
 
 //This method takes record of book borrowed by users
 BookLibrary.prototype.recordBookRelease = function(bookId) {
-  var bookCatalog = this.getCatalog(bookId); //Gets the particular catalog record based on the Id of the book
-
-  if (!bookCatalog) return 'Book Not Found'; //Returns book not found as feedback to the calling object
-
-  var isAvailable = bookCatalog.copies > 0 ? true : false; //Returns false if no book found else returns true
-
-  if (isAvailable) bookCatalog.copies -= 1; //If the book is available, decrement number of copies by one
-
-  return isAvailable; //Return the record status: either true or false
+  return this.removeBookFromCatalog(bookId); //Gets the particular catalog record based on the Id of the book
 };
 
 //This method takes record of book returned by users
 BookLibrary.prototype.recordBookReturned = function(bookId) {
-  var bookCatalog = this.getCatalog(bookId); //Gets the particular catalog record based on the Id of the book
+  var bookCatalog = this.removeBookFromCatalog(bookId); //Gets the particular catalog record based on the Id of the book
 
   return (bookCatalog.copies += 1); //increment number of copies by one and return
 };
 
 //Returns all the cataloged book
-BookLibrary.prototype.getCatalog = function(bookId) {
+BookLibrary.prototype.removeBookFromCatalog = function(bookId) {
   var catalogs = databaseHandler['catalog'];
 
   for (let index = 0; index < catalogs.length; index++) {
     if (catalogs[index].bookId == bookId) {
-      return catalogs[index];
+      catalogs.splice(index, 1); //This line removes one book from the catalog.
+      return true;
     }
   }
 
