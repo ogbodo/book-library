@@ -1,8 +1,8 @@
 var databaseHandler = require('./database/Database'); //Import the database
-var Book = require('./Book'); //Import the Book class
+var Book = require('./Book'); //Import the Book object
 var generateId = require('../users/interface/helpers'); //Import the database
 
-function BookLibrary() {} //Empty constructor just enable us implement its prototypes
+function BookLibrary() {} //Empty constructor just to enable us implement its prototypes
 
 //This method enables us to add new Book object into the book library
 BookLibrary.prototype.create = function(title, category, author) {
@@ -10,33 +10,41 @@ BookLibrary.prototype.create = function(title, category, author) {
     title,
     category,
     author,
-    new Date().toLocaleDateString(), //gets and format today date
-    generateId(databaseHandler['books']) //returns a new Id for this book
+    new Date().toLocaleDateString(), //Gets and format today date
+    generateId(databaseHandler['books']) //Generates a new Id for this book
   );
-  this.save(book); //save this book in database
-  this.addBookToCatalog(book.id, book.date, book.title, book.author); //record this new book in the catalog
+
+  this.save(book); //Save this book in the book database
+
+  this.addBookToCatalog(book.id, book.date, book.title, book.author); //Record this new book in the catalog
+
   return book; //return the new book
 };
 
-//This method gets the book
+//This method gets a book
 BookLibrary.prototype.get = function(bookId) {
-  var books = this.getBooks(); //Gets all books from database
+  var books = this.getBooks(); //Returns the collection of books
+
   for (var index = 0; index < books.length; index++) {
+    //Compare each book id with the book id we are interested in.
     if (books[index].id === bookId) {
+      //Returns the acutal book object we are interested in.
       return books[index];
     }
   }
 };
 
-//This method gets all books
+//This method returns all books
 BookLibrary.prototype.getBooks = function() {
-  return databaseHandler['books'];
+  return databaseHandler['books']; //Gets the collection of books from the database.
 };
 
 //This method updates book title
 BookLibrary.prototype.updateTitle = function(book, newTitle) {
-  var books = this.getBooks(); //Gets all books from database
+  var books = this.getBooks(); //Returns the collection of books
+
   for (var index = 0; index < books.length; index++) {
+    //Compare each book id with the book id we are interested in.
     if (books[index].id === book.id) {
       books[index].title = newTitle; //Performs the update here
       return books[index]; //Returns the updated book.
@@ -46,8 +54,10 @@ BookLibrary.prototype.updateTitle = function(book, newTitle) {
 
 //This method deletes book from the library
 BookLibrary.prototype.delete = function(bookId) {
-  var books = this.getBooks(); //Gets all books from database
+  var books = this.getBooks(); //Returns the collection of books
+
   for (var index = 0; index < books.length; index++) {
+    //Compare each book id with the book id we are interested in.
     if (books[index].id === bookId) {
       books.splice(index, 1); //Using the splice method of Javascript to remove one book at a particular position(i.e at a particular index) of the books collection.
       return true; //returns true as a response
@@ -58,7 +68,7 @@ BookLibrary.prototype.delete = function(bookId) {
 
 //This method deletes all books
 BookLibrary.prototype.deleteAll = function(book) {
-  var books = this.getBooks(); //Gets all books from database
+  var books = this.getBooks(); //Returns the collection of books
   books.splice(0, books.length); //Using the splice method of Javascript to remove books from start to end(i.e from index 0 to last index) of the books collection.
   return books.length; //Returns the new length of the collection of books (which obviously will be 0 at this point)
 };
@@ -73,38 +83,37 @@ BookLibrary.prototype.addBookToCatalog = function(bookId, dateAdded, title) {
     dateAdded: dateAdded
   };
 
-  databaseHandler['catalog'].push(catalogRecord);
+  databaseHandler['catalog'].push(catalogRecord); //Adds this newly created catalog record into the catalog collection
 };
 
 //This method takes record of book borrowed by users
 BookLibrary.prototype.recordBookRelease = function(bookId) {
-  return this.removeBookFromCatalog(bookId); //Gets the particular catalog record based on the Id of the book
+  return this.removeBookFromCatalog(bookId); //Gets the particular catalog record of a book
 };
 
-//This method takes record of book returned by users
+//This method makes record of book returned by users
 BookLibrary.prototype.recordBookReturned = function(bookId) {
-  var bookCatalog = this.removeBookFromCatalog(bookId); //Gets the particular catalog record based on the Id of the book
-
-  return (bookCatalog.copies += 1); //increment number of copies by one and return
+  return this.removeBookFromCatalog(bookId); //Removes the particular book from the catalog collection
 };
 
-//Returns all the cataloged book
+//Removes book from catalog
 BookLibrary.prototype.removeBookFromCatalog = function(bookId) {
-  var catalogs = databaseHandler['catalog'];
+  var catalogs = databaseHandler['catalog']; //Retrieves catalog collection from the database
 
   for (let index = 0; index < catalogs.length; index++) {
+    //Compare each book id with the book id we are interested in.
     if (catalogs[index].bookId == bookId) {
       catalogs.splice(index, 1); //This line removes one book from the catalog.
-      return true;
+      return true; //Returns true for successful operation
     }
   }
 
-  return false;
+  return false; //Returns false for unsuccessful operation
 };
 
-//private function that saves book
+//Method that saves book
 BookLibrary.prototype.save = function(book) {
-  databaseHandler['books'].push(book); //Gets all the book from the book database
+  databaseHandler['books'].push(book); //Returns all the book from the book database
 };
 
 module.exports = BookLibrary; //Make this constructor available for external use by importation
