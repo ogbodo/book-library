@@ -1,8 +1,8 @@
-var User = require('./User'); //Import the User class
+var User = require('./User'); //Import the User Object
 var BookLibrary = require('../Library/BookLibrary'); //Import the book library
-var InheritProperty = require('./interface/inheritProperty'); //Import for inhritance
+var InheritProperty = require('./interface/inheritProperty'); //Import for this object to enable inheritance
 var databaseHandler = require('../Library/database/Database'); //Import the database
-var generateId = require('../users/interface/helpers'); //Import the database
+var generateId = require('../users/interface/helpers'); //Import our helper function that generates unique IDs.
 
 //Admin constructor definition
 function Admin(firstName, lastName, gender) {
@@ -14,22 +14,24 @@ InheritProperty(User, Admin);
 
 //Get a user by id
 Admin.prototype.searchUserByID = function(id) {
-  var users = this.getUsers(); //Gets list of all users from the users database
+  var users = this.getUsers(); //Returns the collection of Users
 
   for (var index = 0; index < users.length; index++) {
+    //Compare each user id with the user id we are interested in and return it.
     if (users[index].id === id) return users[index];
   }
 
-  return false;
+  return false; //Returns false if no user with such id exists
 };
 
-//Get a user by name
+//Get all users with same either first-name or last-name
 Admin.prototype.searchUserByName = function(name) {
-  var users = this.getUsers(), //Gets list of all users from the users database
+  var users = this.getUsers(), //Returns the collection of Users
     results = [];
   for (var index = 0; index < users.length; index++) {
+    //Compare each user id with the user id we are interested in.
     if (users[index].firstName === name || users[index].lastName === name) {
-      results.push(users[index]);
+      results.push(users[index]); //Adds this found user in our result collection
     }
   }
   return results.length === 0 ? false : results; //Returns false if no result found else returns true
@@ -37,7 +39,7 @@ Admin.prototype.searchUserByName = function(name) {
 
 //This method deletes a user
 Admin.prototype.deleteUser = function(userId) {
-  var users = this.getUsers(); //Gets collection of all users from the users database
+  var users = this.getUsers(); //Returns the collection of Users
 
   for (var index = 0; index < users.length; index++) {
     //We wont use the identity equality(===) here to allow type coercion by the javascript engine
@@ -46,7 +48,7 @@ Admin.prototype.deleteUser = function(userId) {
       return true; //returns true as a response
     }
   }
-  return 'User Not Found'; //returns false as a response if user with such ID does not exist
+  return 'User Not Found'; //returns user not found if user with such ID does not exist
 };
 
 //This method deletes all teachers
@@ -61,24 +63,26 @@ Admin.prototype.deleteAllStudent = function() {
 
 //This method reads a student
 Admin.prototype.readStudent = function(matricNumber) {
-  var users = this.getUsers(); //Gets list of all users from the users database
+  var users = this.getUsers(); //Returns the collection of Users
   for (var index = 0; index < users.length; index++) {
+    //Compare each matric number with the student matric number we are interested in.
     if (users[index].matricNumber === matricNumber) {
-      return users[index];
+      return users[index]; //Return the student.
     }
   }
-  return false;
+  return false; //Return false if no student with such matric number found.
 };
 
 //This method reads a teacher
 Admin.prototype.readTeacher = function(staffId) {
-  var users = this.getUsers(); //Gets list of all users from the users database
+  var users = this.getUsers(); //Returns the collection of Users
   for (var index = 0; index < users.length; index++) {
+    //Compare each staff-Id with the staff Id we are interested in.
     if (users[index].staffId === staffId) {
-      return users[index];
+      return users[index]; //Return the staff
     }
   }
-  return false;
+  return false; //Return false if no staff with such staff-Id found.
 };
 
 //This method returns all users
@@ -101,7 +105,7 @@ Admin.prototype.getAllAdmins = function() {
   return this.getUserSets('ADMIN');
 };
 
-//This method adds book to add new boks
+//This method adds book to the library
 Admin.prototype.addBook = function(title, category, author) {
   return BookLibrary.prototype.create(title, category, author);
 };
@@ -128,6 +132,7 @@ Admin.prototype.deleteBooks = function() {
 
 //Method that returns the maximum value between two numbers
 Admin.prototype.getMaximumValue = function(firstPerson, secondPerson) {
+  //Compares to see which person's level is greater
   if (firstPerson.level >= secondPerson.level) {
     return firstPerson;
   }
@@ -152,6 +157,7 @@ Admin.prototype.prioritizeCollector = function(users) {
   var rightPerson = users[0]; //Gets the first person from the array
 
   for (let index = 1; index < users.length; index++) {
+    //Returns the right person to be consider
     rightPerson = this.getThePerson(rightPerson, users[index]);
   }
 
@@ -174,23 +180,7 @@ Admin.prototype.lendBook = function(user, bookId) {
 
   var book = BookLibrary.prototype.get(bookId); //At this stage, we are sure that the book is till available, so just go ahead and returns the particular book
 
-  //At this point the book was actually found
-  // var collectors = databaseHandler['collectors']; //Gets all  users who had borrowed books before now
-
-  // var currentUserCollections = collectors[user.id]; //Retrieves the list of the books borrow by this current user object by using its id
-  // //Checks If this user had borrowed book before now
-  // if (!currentUserCollections) {
-  //   currentUserCollections = []; //Initialize an empty array
-
-  //   return this.completeBorrowProcess(
-  //     book,
-  //     user,
-  //     currentUserCollections,
-  //     collectors
-  //   );
-  // }
-
-  //At this point, user had borrowed book before now. So, just go ahead to complete the process
+  // Just go ahead to complete the demand
   return this.completeBorrowProcess(book, user);
 };
 
@@ -206,55 +196,58 @@ Admin.prototype.recordReturnActivity = function(bookId) {
 
 //This method implements the algorithm for returning a book
 Admin.prototype.returnBook = function(bookId) {
-  var allBorrowedBooks = databaseHandler['collectors']; //retrievs the list of books borrowed by this user
+  var allBorrowedBooks = databaseHandler['collectors']; //Retrieves the list of all books borrowed thus far.
 
-  var itsRemoved = false;
+  var itsRemoved = false; //Initialize to false
 
   for (let index = 0; index < allBorrowedBooks.length; index++) {
+    //Compare each book-Ids with the book id we are interested in.
     if (allBorrowedBooks[index].bookId === bookId) {
-      this.recordReturnActivity(bookId); //Aknowledge the return of this book
-      allBorrowedBooks.splice(index, 1); //Remove this book from list of books this user has borrowed
-      itsRemoved = true;
+      this.recordReturnActivity(bookId); //Acknowledge the return of this book
+      allBorrowedBooks.splice(index, 1); //Remove this book from the list of all books borrowed thus far
+      itsRemoved = true; //Sets to true
       break;
     }
   }
 
-  return itsRemoved;
+  return itsRemoved; //Return operation status
 };
 
 //This method retrieves users based on their user type: Teachers, Students or Admins
 Admin.prototype.getUserSets = function(userType) {
-  var users = Admin.prototype.getUsers(),
-    usersFound = [];
+  var users = Admin.prototype.getUsers(), //Returns the collection of Users
+    usersFound = []; //Declare an empty collection
   for (var index = 0; index < users.length; index++) {
+    //Compare each user-type with the user type we are interested in.
     if (users[index].userType === userType) {
-      usersFound.push(users[index]);
+      usersFound.push(users[index]); //Add this user to usersFound collection declared above
     }
   }
 
-  return usersFound;
+  return usersFound; //Returns the collection of found users
 };
 
 //This method deletes users based on their user type: Teachers, Students or Admins
 Admin.prototype.deleteUsers = function(userType) {
-  var users = Admin.prototype.getUsers(),
+  var users = Admin.prototype.getUsers(), //Returns the collection of Users
     madeDeletion = false;
 
   for (var index = 0; index < users.length; index++) {
+    //Compare each user-type with the user type we are interested in.
     if (users[index].userType === userType) {
-      users.splice(index, 1);
-      madeDeletion = true;
+      users.splice(index, 1); //Using the splice method of Javascript to remove one user at a particular position(i.e at a particular index) of the User collection.
+      madeDeletion = true; // sets true as a response
     }
   }
 
-  return madeDeletion;
+  return madeDeletion; //Returns the response
 };
 
 //This method completes the borrow process
 Admin.prototype.completeBorrowProcess = function(book, user) {
-  var allBorrowedBooks = databaseHandler['collectors'];
-  var dateIssued = new Date().toLocaleDateString();
-  var id = generateId(allBorrowedBooks);
+  var allBorrowedBooks = databaseHandler['collectors']; //Returns the collection of collectors
+  var dateIssued = new Date().toLocaleDateString(); //Gets and format today date
+  var id = generateId(allBorrowedBooks); //Generates a new Id for this borrowed book
 
   //Object literal with both user and book information
   var borrowedBook = {
@@ -266,11 +259,9 @@ Admin.prototype.completeBorrowProcess = function(book, user) {
     userId: user.id
   };
 
-  allBorrowedBooks.push(borrowedBook); //Adds the borrowedBook object to the current user's collections of books borrowed
-
-  // allBorrowedBooks[user.id] = userBorrowedBooks; //Assigning the collections to the user's id
+  allBorrowedBooks.push(borrowedBook); //Adds the borrowedBook object to the collection of books borrowed
 
   return borrowedBook; //returns the borrowed book
 };
 
-module.exports = Admin; //Make this class available for external use by importation
+module.exports = Admin; //Make this constrictor available for external use by importation
