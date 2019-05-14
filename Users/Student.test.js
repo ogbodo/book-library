@@ -1,5 +1,5 @@
-var Student = require('./Student'); //Import the Student class
-var Admin = require('./Admin'); //Import the Admin class
+var Student = require('./Student'); //Import the Student object
+var Admin = require('./Admin'); //Import the Admin object
 
 //Functionalities of Student with respect to own account
 describe('All about Student own account functionalities', function() {
