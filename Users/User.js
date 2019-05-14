@@ -7,8 +7,9 @@ function User(firstName, lastName, gender, userType) {
   this.lastName = lastName;
   this.gender = gender;
   this.userType = userType;
-  this.id = generateId(this.getUsers());
-  this.save();
+  this.id = generateId(this.getUsers()); //Generates a new Id for this book
+
+  this.save(); //Save this user to the user database
 }
 
 //Gets user's first-name
