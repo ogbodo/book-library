@@ -2,6 +2,7 @@ var User = require('./User'); //Import the User class
 var BookLibrary = require('../Library/BookLibrary'); //Import the book library
 var InheritProperty = require('./interface/inheritProperty'); //Import for inhritance
 var databaseHandler = require('../Library/database/Database'); //Import the database
+var generateId = require('../users/interface/helpers'); //Import the database
 
 //Admin constructor definition
 function Admin(firstName, lastName, gender) {
@@ -174,28 +175,23 @@ Admin.prototype.lendBook = function(user, bookId) {
   var book = BookLibrary.prototype.get(bookId); //At this stage, we are sure that the book is till available, so just go ahead and returns the particular book
 
   //At this point the book was actually found
-  var collectors = databaseHandler['collectors']; //Gets all  users who had borrowed books before now
+  // var collectors = databaseHandler['collectors']; //Gets all  users who had borrowed books before now
 
-  var currentUserCollections = collectors[user.id]; //Retrieves the list of the books borrow by this current user object by using its id
-  //Checks If this user had borrowed book before now
-  if (!currentUserCollections) {
-    currentUserCollections = []; //Initialize an empty array
+  // var currentUserCollections = collectors[user.id]; //Retrieves the list of the books borrow by this current user object by using its id
+  // //Checks If this user had borrowed book before now
+  // if (!currentUserCollections) {
+  //   currentUserCollections = []; //Initialize an empty array
 
-    return this.completeBorrowProcess(
-      book,
-      user,
-      currentUserCollections,
-      collectors
-    );
-  }
+  //   return this.completeBorrowProcess(
+  //     book,
+  //     user,
+  //     currentUserCollections,
+  //     collectors
+  //   );
+  // }
 
   //At this point, user had borrowed book before now. So, just go ahead to complete the process
-  return this.completeBorrowProcess(
-    book,
-    user,
-    currentUserCollections,
-    collectors
-  );
+  return this.completeBorrowProcess(book, user);
 };
 
 //Records the borrowing activity
@@ -209,15 +205,15 @@ Admin.prototype.recordReturnActivity = function(bookId) {
 };
 
 //This method implements the algorithm for returning a book
-Admin.prototype.returnBook = function(user, bookId) {
-  var currentUserCollections = databaseHandler['collectors'][user.id]; //retrievs the list of books borrowed by this user
+Admin.prototype.returnBook = function(bookId) {
+  var allBorrowedBooks = databaseHandler['collectors']; //retrievs the list of books borrowed by this user
 
   var itsRemoved = false;
 
-  for (let index = 0; index < currentUserCollections.length; index++) {
-    if (currentUserCollections[index].bookId === bookId) {
+  for (let index = 0; index < allBorrowedBooks.length; index++) {
+    if (allBorrowedBooks[index].bookId === bookId) {
       this.recordReturnActivity(bookId); //Aknowledge the return of this book
-      currentUserCollections.splice(index, 1); //Remove this book from list of books this user has borrowed
+      allBorrowedBooks.splice(index, 1); //Remove this book from list of books this user has borrowed
       itsRemoved = true;
       break;
     }
@@ -255,16 +251,14 @@ Admin.prototype.deleteUsers = function(userType) {
 };
 
 //This method completes the borrow process
-Admin.prototype.completeBorrowProcess = function(
-  book,
-  user,
-  userBorrowedBooks,
-  allBorrowedBooks
-) {
+Admin.prototype.completeBorrowProcess = function(book, user) {
+  var allBorrowedBooks = databaseHandler['collectors'];
   var dateIssued = new Date().toLocaleDateString();
+  var id = generateId(allBorrowedBooks);
 
   //Object literal with both user and book information
   var borrowedBook = {
+    id: id,
     bookTitle: book.title,
     author: book.author,
     bookId: book.id,
@@ -272,9 +266,9 @@ Admin.prototype.completeBorrowProcess = function(
     userId: user.id
   };
 
-  userBorrowedBooks.push(borrowedBook); //Adds the borrowedBook object to the current user's collections of books borrowed
+  allBorrowedBooks.push(borrowedBook); //Adds the borrowedBook object to the current user's collections of books borrowed
 
-  allBorrowedBooks[user.id] = userBorrowedBooks; //Assigning the collections to the user's id
+  // allBorrowedBooks[user.id] = userBorrowedBooks; //Assigning the collections to the user's id
 
   return borrowedBook; //returns the borrowed book
 };

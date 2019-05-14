@@ -38,8 +38,8 @@ Student.prototype.borrowBook = function(bookId) {
 };
 
 //This method enables student to return borrowed book
-Student.prototype.returnBorrowedbook = function(title, author) {
-  return Admin.prototype.returnBook(this, title, author);
+Student.prototype.returnBorrowedbook = function(bookId) {
+  return Admin.prototype.returnBook(bookId);
 };
 
 module.exports = Student; //Make this class available for external use by importation

@@ -25,7 +25,7 @@ Teacher.prototype.borrowBook = function(bookId) {
 
 //This method enables teacher to return borrowed book
 Teacher.prototype.returnBorrowedbook = function(bookId) {
-  return Admin.prototype.returnBook(this, bookId);
+  return Admin.prototype.returnBook(bookId);
 };
 
 module.exports = Teacher; //Make this class available for external use by importation

@@ -18,7 +18,7 @@ BookLibrary.prototype.create = function(title, category, author) {
   return book; //return the new book
 };
 
-//This method gets a book by title and author
+//This method gets the book
 BookLibrary.prototype.get = function(bookId) {
   var books = this.getBooks(); //Gets all books from database
   for (var index = 0; index < books.length; index++) {
