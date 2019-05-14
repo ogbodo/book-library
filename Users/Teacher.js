@@ -1,11 +1,13 @@
-var User = require('./User'); //Import the User class
-var InheritProperty = require('./interface/inheritProperty'); //Import for inhritance
-var Admin = require('./Admin'); //Import the Admin class
+var User = require('./User'); //Import the User object
+var InheritProperty = require('./interface/inheritProperty'); //Import for this object to enable inheritance
+var Admin = require('./Admin'); //Import the Admin object
 
 //Teacher constructor definition
 function Teacher(firstName, LastName, staffId, gender, faculty, department) {
   this.staffId = staffId;
+
   User.call(this, firstName, LastName, gender, 'TEACHER'); //To enable proper inheritance
+
   this.setFaculty(faculty);
   this.setDepartment(department);
 }
@@ -28,4 +30,4 @@ Teacher.prototype.returnBorrowedbook = function(bookId) {
   return Admin.prototype.returnBook(bookId);
 };
 
-module.exports = Teacher; //Make this class available for external use by importation
+module.exports = Teacher; //Make this constructor available for external use by importation
