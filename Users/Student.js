@@ -1,6 +1,6 @@
-var User = require('./User'); //Import the User class
-var InheritProperty = require('./interface/inheritProperty'); //Import for inhritance
-var Admin = require('./Admin'); //Import the Admin class
+var User = require('./User'); //Import the User object
+var InheritProperty = require('./interface/inheritProperty'); //Import for this object to enable inheritance
+var Admin = require('./Admin'); //Import the Admin object
 
 //Student constructor definition
 function Student(
@@ -16,6 +16,7 @@ function Student(
   this.faculty = faculty;
   this.department = department;
   this.level = level;
+
   User.call(this, firstName, LastName, gender, 'STUDENT'); //To enable proper inheritance
 }
 
@@ -42,4 +43,4 @@ Student.prototype.returnBorrowedbook = function(bookId) {
   return Admin.prototype.returnBook(bookId);
 };
 
-module.exports = Student; //Make this class available for external use by importation
+module.exports = Student; //Make this constructor available for external use by importation
