@@ -30,21 +30,23 @@ User.prototype.updatePersonalDetails = function(firsName, lastName) {
 
 //Enables user to delete own account
 User.prototype.deleteAccount = function() {
-  var users = this.getUsers();
+  var users = this.getUsers(); //Returns the collection of Users
   for (var index = 0; index < users.length; index++) {
+    //Compare each user-Id with the user Id we are interested in.
     if (users[index].id === this.id) {
-      users.splice(index, 1);
-      return true;
+      users.splice(index, 1); //Using the splice method of Javascript to remove one user at a particular position(i.e at a particular index) of the users collection.
+      return true; //returns true as a response
     }
   }
 };
 
 //Gets user's information as an object
 User.prototype.retrieveDetails = function() {
-  var users = this.getUsers();
+  var users = this.getUsers(); //Returns the collection of Users
   for (var index = 0; index < users.length; index++) {
+    //Compare each user-Id with the user Id we are interested in.
     if (users[index].id === this.id) {
-      return users[index];
+      return users[index]; //returns the user found with the id as a response
     }
   }
 };
@@ -59,17 +61,17 @@ User.prototype.setDepartment = function(department) {
   this.department = department;
 };
 
-//Upates user's gender
+//Updates user's gender
 User.prototype.updateGender = function(gender) {
   this.gender = gender;
 };
 
-//Upates user's faculty
+//Updates user's faculty
 User.prototype.updateFaculty = function(faculty) {
   this.faculty = faculty;
 };
 
-//Upates user's department
+//Updates user's department
 User.prototype.updateDepartment = function(department) {
   this.department = department;
 };
