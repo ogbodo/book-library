@@ -1,4 +1,4 @@
-var databaseHandler = require('../database/Database'); //Import the database
+var databaseHandler = require('../database/database'); //Import the database
 var Book = require('../constructors/book'); //Import the Book object
 var generateId = require('./helpers'); //Import the database
 
