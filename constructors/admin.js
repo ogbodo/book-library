@@ -1,8 +1,8 @@
-var User = require('./User'); //Import the User Object
-var BookLibrary = require('../Library/BookLibrary'); //Import the book library
-var InheritProperty = require('./interface/inheritProperty'); //Import for this object to enable inheritance
-var databaseHandler = require('../Library/database/Database'); //Import the database
-var generateId = require('../users/interface/helpers'); //Import our helper function that generates unique IDs.
+var User = require('./user'); //Import the User Object
+var BookLibrary = require('./book-library'); //Import the book library
+var InheritProperty = require('./inherit-property'); //Import for this object to enable inheritance
+var databaseHandler = require('../database/Database'); //Import the database
+var generateId = require('../constructors/helpers'); //Import our helper function that generates unique IDs.
 
 //Admin constructor definition
 function Admin(firstName, lastName, gender) {

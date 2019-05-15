@@ -1,6 +1,6 @@
-var User = require('./User'); //Import the User object
-var InheritProperty = require('./interface/inheritProperty'); //Import for this object to enable inheritance
-var Admin = require('./Admin'); //Import the Admin object
+var User = require('./user'); //Import the User object
+var InheritProperty = require('./inherit-property'); //Import for this object to enable inheritance
+var Admin = require('./admin'); //Import the Admin object
 
 //Teacher constructor definition
 function Teacher(firstName, LastName, staffId, gender, faculty, department) {

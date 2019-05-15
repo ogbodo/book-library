@@ -1,5 +1,5 @@
-var Teacher = require('./Teacher'); //Import the Teacher object
-var Admin = require('./Admin'); //Import the Admin object
+var Teacher = require('../constructors/teacher'); //Import the Teacher object
+var Admin = require('../constructors/admin'); //Import the Admin object
 
 //Functionalities of Teacher with respect to own account
 describe('All about Admin own account functionalities', function() {
