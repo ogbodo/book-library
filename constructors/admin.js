@@ -2,7 +2,7 @@ var user = require('./user'); //Import the User Object
 var bookLibrary = require('./book-library'); //Import the book library
 var inheritProperty = require('./inherit-property'); //Import for this object to enable inheritance
 var databaseHandler = require('../database/database'); //Import the database
-var generateId = require('../constructors/helpers'); //Import our helper function that generates unique IDs.
+var generateId = require('./helpers/id-generator'); //Import our helper function that generates unique IDs.
 
 //Admin constructor definition
 function Admin(firstName, lastName, gender) {

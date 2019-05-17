@@ -1,6 +1,6 @@
 var databaseHandler = require('../database/database'); //Import the database
 var book = require('../constructors/book'); //Import the Book object
-var generateId = require('./helpers'); //Import the database
+var generateId = require('./helpers/id-generator'); //Import the database
 
 function BookLibrary() {} //Empty constructor just to enable us implement its prototypes
 
@@ -72,7 +72,7 @@ BookLibrary.prototype.delete = function(bookId) {
 };
 
 //This method deletes all books
-BookLibrary.prototype.deleteAll = function(book) {
+BookLibrary.prototype.deleteAll = function() {
   var books = this.getBooks(); //Returns the collection of books
   books.splice(0, books.length); //Using the splice method of Javascript to remove books from start to end(i.e from index 0 to last index) of the books collection.
   return books.length; //Returns the new length of the collection of books (which obviously will be 0 at this point)

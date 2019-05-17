@@ -1,5 +1,5 @@
 var databaseHandler = require('../database/database'); //Import the database
-var generateId = require('../constructors/helpers'); //Import the database
+var generateId = require('./helpers/id-generator'); //Import the database
 
 //User constructor definition
 function User(firstName, lastName, gender, userType) {
