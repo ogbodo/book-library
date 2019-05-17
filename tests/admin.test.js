@@ -75,19 +75,19 @@ describe('All about Admin and other users', function() {
     );
 
     test('For the case student by id', function() {
-      expect(admin.searchUserByID(student.id)).toEqual(student);
+      expect(admin.getUserByID(student.id)).toEqual(student);
     });
 
     test('For the case teacher by id', function() {
-      expect(admin.searchUserByID(teacher.id)).toEqual(teacher);
+      expect(admin.getUserByID(teacher.id)).toEqual(teacher);
     });
 
     test('For the case student by id', function() {
-      expect(admin.searchUserByID(student.id)).toEqual(student);
+      expect(admin.getUserByID(student.id)).toEqual(student);
     });
 
     test('For the case of wrong id', function() {
-      expect(admin.searchUserByID('100')).toBeFalsy();
+      expect(admin.getUserByID('100')).toBeFalsy();
     });
 
     test('For the case teacher by first name', function() {
@@ -183,20 +183,20 @@ describe('All about Admin and other users', function() {
       });
 
       test('For the case of deleting all teacher', function() {
-        expect(admin.deleteAllTeacher()).toBeTruthy();
+        expect(admin.deleteAllTeachers()).toBeTruthy();
       });
 
       test('For the case of deleting all student', function() {
-        expect(admin.deleteAllStudent()).toBeTruthy();
+        expect(admin.deleteAllStudents()).toBeTruthy();
       });
 
       describe('For the case where admin wants to delete users when none exists', function() {
         test('For the case of deleting all student', function() {
-          expect(admin.deleteAllStudent()).toBeTruthy();
+          expect(admin.deleteAllStudents()).toBeTruthy();
         });
 
         test('For the case of deleting all teacher', function() {
-          expect(admin.deleteAllTeacher()).toBeFalsy();
+          expect(admin.deleteAllTeachers()).toBeFalsy();
         });
       });
     });

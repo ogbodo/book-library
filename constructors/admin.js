@@ -1,19 +1,19 @@
-var User = require('./user'); //Import the User Object
-var BookLibrary = require('./book-library'); //Import the book library
-var InheritProperty = require('./inherit-property'); //Import for this object to enable inheritance
+var user = require('./user'); //Import the User Object
+var bookLibrary = require('./book-library'); //Import the book library
+var inheritProperty = require('./inherit-property'); //Import for this object to enable inheritance
 var databaseHandler = require('../database/database'); //Import the database
 var generateId = require('../constructors/helpers'); //Import our helper function that generates unique IDs.
 
 //Admin constructor definition
 function Admin(firstName, lastName, gender) {
-  User.call(this, firstName, lastName, gender, 'ADMIN'); //To enable proper inheritance
+  user.call(this, firstName, lastName, gender, 'ADMIN'); //To enable proper inheritance
 }
 
 //Make Admin inherits from User
-InheritProperty(User, Admin);
+inheritProperty(user, Admin);
 
 //Get a user by id
-Admin.prototype.searchUserByID = function(id) {
+Admin.prototype.getUserByID = function(id) {
   var users = this.getUsers(); //Returns the collection of Users
 
   for (var index = 0; index < users.length; index++) {
@@ -52,12 +52,12 @@ Admin.prototype.deleteUser = function(userId) {
 };
 
 //This method deletes all teachers
-Admin.prototype.deleteAllTeacher = function() {
+Admin.prototype.deleteAllTeachers = function() {
   return this.deleteUsers('TEACHER');
 };
 
 //This method deletes all students
-Admin.prototype.deleteAllStudent = function() {
+Admin.prototype.deleteAllStudents = function() {
   return this.deleteUsers('STUDENT');
 };
 
@@ -107,27 +107,27 @@ Admin.prototype.getAllAdmins = function() {
 
 //This method adds book to the library
 Admin.prototype.addBook = function(title, category, author) {
-  return BookLibrary.prototype.create(title, category, author);
+  return bookLibrary.prototype.create(title, category, author);
 };
 
 //This method gets all  books
 Admin.prototype.getAllBooks = function() {
-  return BookLibrary.prototype.getBooks();
+  return bookLibrary.prototype.getBooks();
 };
 
 //This method updates book by title
 Admin.prototype.updateBookTitle = function(book, newTitle) {
-  return BookLibrary.prototype.updateTitle(book, newTitle);
+  return bookLibrary.prototype.updateTitle(book, newTitle);
 };
 
 //This method deletes a book
 Admin.prototype.deleteBook = function(book) {
-  return BookLibrary.prototype.delete(book);
+  return bookLibrary.prototype.delete(book);
 };
 
 //This method deletes all books
 Admin.prototype.deleteBooks = function() {
-  return BookLibrary.prototype.deleteAll();
+  return bookLibrary.prototype.deleteAll();
 };
 
 //Method that returns the maximum value between two numbers
@@ -178,7 +178,7 @@ Admin.prototype.lendBook = function(user, bookId) {
     return 'Book Taken'; //At this point, the book is unavailable
   }
 
-  var book = BookLibrary.prototype.get(bookId); //At this stage, we are sure that the book is till available, so just go ahead and returns the particular book
+  var book = bookLibrary.prototype.get(bookId); //At this stage, we are sure that the book is till available, so just go ahead and returns the particular book
 
   // Just go ahead to complete the demand
   return this.completeBorrowProcess(book, user);
@@ -186,12 +186,12 @@ Admin.prototype.lendBook = function(user, bookId) {
 
 //Records the borrowing activity
 Admin.prototype.recordLendActivity = function(bookId) {
-  return BookLibrary.prototype.recordBookRelease(bookId);
+  return bookLibrary.prototype.recordBookRelease(bookId);
 };
 
 //Records the return activity
 Admin.prototype.recordReturnActivity = function(bookId) {
-  return BookLibrary.prototype.recordBookReturned(bookId);
+  return bookLibrary.prototype.recordBookReturned(bookId);
 };
 
 //This method implements the algorithm for returning a book
