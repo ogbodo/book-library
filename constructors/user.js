@@ -1,12 +1,15 @@
 var databaseHandler = require('../database/database'); //Import the database
-var generateId = require('./helpers/id-generator'); //Import the database
+var generateId = require('../helpers/id-generator'); //Import our helper function that generates unique IDs.
 
 //User constructor definition
-function User(firstName, lastName, gender, userType) {
+function User(firstName, lastName, gender, userType, faculty, department) {
   this.firstName = firstName;
   this.lastName = lastName;
   this.gender = gender;
   this.userType = userType;
+  this.department = department;
+  this.faculty = faculty;
+
   this.id = generateId(this.getUsers()); //Generates a new Id for this book
 
   this.save(); //Save this user to the user database
@@ -23,13 +26,22 @@ User.prototype.getLastName = function() {
 };
 
 //Updates user's first-name
-User.prototype.updatePersonalDetails = function(firsName, lastName) {
-  this.firstName = firsName;
+User.prototype.updatePersonalDetails = function(
+  firstName,
+  lastName,
+  gender,
+  faculty,
+  department
+) {
+  this.firstName = firstName;
   this.lastName = lastName;
+  this.gender = gender;
+  this.department = department;
+  this.faculty = faculty;
 };
 
 //Enables user to delete own account
-User.prototype.deleteAccount = function() {
+User.prototype.delete = function() {
   var users = this.getUsers(); //Returns the collection of Users
   for (var index = 0; index < users.length; index++) {
     //Compare each user-Id with the user Id we are interested in.
@@ -49,31 +61,6 @@ User.prototype.retrieveDetails = function() {
       return users[index]; //returns the user found with the id as a response
     }
   }
-};
-
-//sets user's faculty
-User.prototype.setFaculty = function(faculty) {
-  this.faculty = faculty;
-};
-
-//sets user's department
-User.prototype.setDepartment = function(department) {
-  this.department = department;
-};
-
-//Updates user's gender
-User.prototype.updateGender = function(gender) {
-  this.gender = gender;
-};
-
-//Updates user's faculty
-User.prototype.updateFaculty = function(faculty) {
-  this.faculty = faculty;
-};
-
-//Updates user's department
-User.prototype.updateDepartment = function(department) {
-  this.department = department;
 };
 
 //This method saves user to the database

@@ -21,7 +21,7 @@ describe('All about Admin own account functionalities', function() {
 
   test('Admin account can be deleted', function() {
     var admin = new Admin('Matthias', ' King', 'Male');
-    expect(admin.deleteAccount()).toBeTruthy();
+    expect(admin.delete()).toBeTruthy();
   });
 
   test('Admin details can be read', function() {

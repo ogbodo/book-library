@@ -1,7 +1,6 @@
 var databaseHandler = require('../database/database'); //Import the database
 var book = require('../constructors/book'); //Import the Book object
-var generateId = require('./helpers/id-generator'); //Import the database
-
+var generateId = require('../helpers/id-generator'); //Import our helper function that generates unique IDs.
 function BookLibrary() {} //Empty constructor just to enable us implement its prototypes
 
 //This method enables us to add new Book object into the book library

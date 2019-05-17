@@ -27,28 +27,17 @@ describe('All about Student own account functionalities', function() {
       '300L'
     );
     test('For the case of personal details', function() {
-      student.updatePersonalDetails('Ebuka', 'Joshua');
+      student.updatePersonalDetails(
+        'Ebuka',
+        'Joshua',
+        'Female',
+        'Art',
+        'Visual and Creative Art'
+      );
       expect(student.getFirstName()).toBe('Ebuka');
       expect(student.getLastName()).toBe('Joshua');
-    });
-
-    test('For the case of Matric Number', function() {
-      student.updateMatricNumber('8902311230');
-      expect(student.matricNumber).toBe('8902311230');
-    });
-
-    test('For the case of Gender', function() {
-      student.updateGender('Female');
       expect(student.gender).toBe('Female');
-    });
-
-    test('For the case of Faculty', function() {
-      student.updateFaculty('Art');
       expect(student.faculty).toBe('Art');
-    });
-
-    test('For the case of Department', function() {
-      student.updateDepartment('Visual and Creative Art');
       expect(student.department).toBe('Visual and Creative Art');
     });
 

@@ -25,28 +25,17 @@ describe('All about Admin own account functionalities', function() {
     );
 
     test('For the case of personal details', function() {
-      teacher.updatePersonalDetails('Fola', 'Tolu');
+      teacher.updatePersonalDetails(
+        'Fola',
+        'Tolu',
+        'Male',
+        'Science',
+        'Biology'
+      );
       expect(teacher.getFirstName()).toBe('Fola');
       expect(teacher.getLastName()).toBe('Tolu');
-    });
-
-    test('For the case of StaffId', function() {
-      teacher.updateStaffId('Dev/89/0023');
-      expect(teacher.staffId).toBe('Dev/89/0023');
-    });
-
-    test('For the case of Gender', function() {
-      teacher.updateGender('Male');
       expect(teacher.gender).toBe('Male');
-    });
-
-    test('For the case of Faculty', function() {
-      teacher.updateFaculty('Science');
       expect(teacher.faculty).toBe('Science');
-    });
-
-    test('For the case of Department', function() {
-      teacher.updateDepartment('Biology');
       expect(teacher.department).toBe('Biology');
     });
   });
@@ -73,7 +62,7 @@ describe('All about Admin own account functionalities', function() {
       'Social Science',
       'Political Science'
     );
-    expect(teacher.deleteAccount()).toBeTruthy();
+    expect(teacher.delete()).toBeTruthy();
   });
 });
 
