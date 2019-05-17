@@ -1,12 +1,12 @@
 var databaseHandler = require('../database/database'); //Import the database
-var Book = require('../constructors/book'); //Import the Book object
+var book = require('../constructors/book'); //Import the Book object
 var generateId = require('./helpers'); //Import the database
 
 function BookLibrary() {} //Empty constructor just to enable us implement its prototypes
 
 //This method enables us to add new Book object into the book library
 BookLibrary.prototype.create = function(title, category, author) {
-  var book = new Book(
+  var newBook = new book(
     title,
     category,
     author,
@@ -14,11 +14,16 @@ BookLibrary.prototype.create = function(title, category, author) {
     generateId(databaseHandler['books']) //Generates a new Id for this book
   );
 
-  this.save(book); //Save this book in the book database
+  this.save(newBook); //Save this book in the book database
 
-  this.addBookToCatalog(book.id, book.date, book.title, book.author); //Record this new book in the catalog
+  this.addBookToCatalog(
+    newBook.id,
+    newBook.date,
+    newBook.title,
+    newBook.author
+  ); //Record this new book in the catalog
 
-  return book; //return the new book
+  return newBook; //return the new book
 };
 
 //This method gets a book
