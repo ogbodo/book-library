@@ -106,7 +106,7 @@ BookLibrary.prototype.removeBookFromCatalog = function(bookId) {
 
   for (let index = 0; index < catalogs.length; index++) {
     //Compare each book id with the book id we are interested in.
-    if (catalogs[index].bookId == bookId) {
+    if (catalogs[index].bookId === bookId) {
       catalogs.splice(index, 1); //This line removes one book from the catalog.
       return true; //Returns true for successful operation
     }

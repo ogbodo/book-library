@@ -46,6 +46,7 @@ describe('All about Student own account functionalities', function() {
       expect(student.level).toBe('400L');
     });
   });
+
   test('Student details can be read', function() {
     var student = new Student(
       'Samuel',

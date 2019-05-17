@@ -12,6 +12,11 @@ function Teacher(firstName, lastName, staffId, gender, faculty, department) {
 //Make Student inherits from User
 inheritProperty(user, Teacher);
 
+//This method updates student's level
+Teacher.prototype.updateStaffId = function(staffId) {
+  this.staffId = staffId;
+};
+
 //This method enables teacher to borrow book
 Teacher.prototype.borrowBook = function(bookId) {
   return admin.prototype.lendBook(this, bookId);

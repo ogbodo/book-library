@@ -43,7 +43,7 @@ Admin.prototype.deleteUser = function(userId) {
 
   for (var index = 0; index < users.length; index++) {
     //We wont use the identity equality(===) here to allow type coercion by the javascript engine
-    if (users[index].id == userId) {
+    if (users[index].id === userId) {
       users.splice(index, 1); //Using the splice method of Javascript to remove one user at a particular position(i.e at a particular index) of the users collection.
       return true; //returns true as a response
     }

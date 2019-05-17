@@ -32,11 +32,14 @@ describe('All about Admin own account functionalities', function() {
         'Science',
         'Biology'
       );
+
+      teacher.updateStaffId('Dev/09/3332');
       expect(teacher.getFirstName()).toBe('Fola');
       expect(teacher.getLastName()).toBe('Tolu');
       expect(teacher.gender).toBe('Male');
       expect(teacher.faculty).toBe('Science');
       expect(teacher.department).toBe('Biology');
+      expect(teacher.staffId).toBe('Dev/09/3332');
     });
   });
 
