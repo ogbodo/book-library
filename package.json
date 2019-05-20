@@ -1,0 +1,23 @@
+{
+  "name": "book-library",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest --watchAll --coverage"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ogbodo/book-library.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ogbodo/book-library/issues"
+  },
+  "homepage": "https://github.com/ogbodo/book-library#readme",
+  "devDependencies": {
+    "jest": "^24.8.0"
+  }
+}
