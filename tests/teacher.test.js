@@ -2,7 +2,7 @@ var Teacher = require('../constructors/teacher'); //Import the Teacher object
 var Admin = require('../constructors/admin'); //Import the Admin object
 
 //Functionalities of Teacher with respect to own account
-describe('All about Admin own account functionalities', function() {
+describe('All about Teacher own account functionalities', function() {
   test('Teacher can be created', function() {
     var teacher = new Teacher(
       'David',
