@@ -10,7 +10,7 @@ function User(firstName, lastName, gender, userType, faculty, department) {
   this.department = department;
   this.faculty = faculty;
 
-  this.id = generateId(this.getUsers()); //Generates a new Id for this book
+  this.id = generateId(this.getUsers()); //Generates a new Id for this User
 
   this.save(); //Save this user to the user database
 }
@@ -25,7 +25,7 @@ User.prototype.getLastName = function() {
   return this.lastName;
 };
 
-//Updates user's first-name
+//Updates user's details
 User.prototype.updatePersonalDetails = function(
   firstName,
   lastName,
